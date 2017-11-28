@@ -8,12 +8,14 @@ def ReplaceSelect(String):
         Replacer = re.compile(re.escape(word), re.IGNORECASE)
         Replacer.sub(ReplaceWord, String)
 
+
 def ReplaceFrom(String):
     ReplacedWords = ['that are in', 'contained in', 'in']
     ReplaceWord = 'From'
     for word in ReplacedWords:
         Replacer = re.compile(re.escape(word), re.IGNORECASE)
         Replacer.sub(ReplaceWord, String)
+
 
 def ReplaceStar(String):
     ReplacedWords = ['everything', 'all items']
