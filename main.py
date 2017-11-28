@@ -1,14 +1,15 @@
-import Dict.py
+import Dict
 # import nltk
 
-# Give me all the games in the database that are older than
+# Give me all the games in the database that were made before 2000
 quit = 0
-while quit == 0:
-    print("Please enter a Query")
-    InString = input()
+while True:
+    InString = raw_input("Please enter a Query or \"Exit\" to quit\n")
+    if InString.lower() == "exit":
+        break
 
-    Dict.ReplaceSelect(InString)
-    Dict.ReplaceFrom(InString)
-    Dict.ReplaceStar(InString)
+    InString = Dict.ReplaceSelect(InString)
+    InString = Dict.ReplaceFrom(InString)
+    InString = Dict.ReplaceStar(InString)
 
     print(InString)

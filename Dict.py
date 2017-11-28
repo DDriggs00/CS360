@@ -3,23 +3,26 @@ import re
 
 def ReplaceSelect(String):
     ReplacedWords = ['give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get']
-    ReplaceWord = 'Select'
-    for word in ReplacedWords:
-        Replacer = re.compile(re.escape(word), re.IGNORECASE)
-        Replacer.sub(ReplaceWord, String)
+    ReplaceWord = 'select'
+
+    Replacer = re.compile(r'\b' + '|'.join(ReplacedWords) + r'\b', re.IGNORECASE)
+    String = Replacer.sub(ReplaceWord, String)
+    return String
 
 
 def ReplaceFrom(String):
     ReplacedWords = ['that are in', 'contained in', 'in']
     ReplaceWord = 'From'
-    for word in ReplacedWords:
-        Replacer = re.compile(re.escape(word), re.IGNORECASE)
-        Replacer.sub(ReplaceWord, String)
+
+    Replacer = re.compile(r'\b' + '|'.join(ReplacedWords) + r'\b', re.IGNORECASE)
+    String = Replacer.sub(ReplaceWord, String)
+    return String
 
 
 def ReplaceStar(String):
     ReplacedWords = ['everything', 'all items']
     ReplaceWord = '\*'
-    for word in ReplacedWords:
-        Replacer = re.compile(re.escape(word), re.IGNORECASE)
-        Replacer.sub(ReplaceWord, String)
+
+    Replacer = re.compile(r'\b' + '|'.join(ReplacedWords) + r'\b', re.IGNORECASE)
+    String = Replacer.sub(ReplaceWord, String)
+    return String
