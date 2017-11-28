@@ -2,7 +2,7 @@ import re
 
 
 def ReplaceSelect(String):
-    ReplacedWords = ['give me', 'show me', 'list', 'show', 'print out', 'display']
+    ReplacedWords = ['give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get']
     ReplaceWord = 'Select'
     for word in ReplacedWords:
         Replacer = re.compile(re.escape(word), re.IGNORECASE)
