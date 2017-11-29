@@ -1,28 +1,23 @@
 import re
 
 
-def ReplaceSelect(String):
-    ReplacedWords = ['give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get']
-    ReplaceWord = 'select'
+def DoReplacing(String):
+    Words = ['give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get']
+    Word = 'select'
+    String = Replace(String, Words, Word)
 
-    Replacer = re.compile(r'\b' + '|'.join(ReplacedWords) + r'\b', re.IGNORECASE)
-    String = Replacer.sub(ReplaceWord, String)
+    Words = ['that are in', 'contained in', 'in']
+    Word = 'From'
+    String = Replace(String, Words, Word)
+
+    Words = ['everything', 'all items']
+    Word = '\*'
+    String = Replace(String, Words, Word)
+
     return String
 
 
-def ReplaceFrom(String):
-    ReplacedWords = ['that are in', 'contained in', 'in']
-    ReplaceWord = 'From'
-
-    Replacer = re.compile(r'\b' + '|'.join(ReplacedWords) + r'\b', re.IGNORECASE)
-    String = Replacer.sub(ReplaceWord, String)
-    return String
-
-
-def ReplaceStar(String):
-    ReplacedWords = ['everything', 'all items']
-    ReplaceWord = '\*'
-
-    Replacer = re.compile(r'\b' + '|'.join(ReplacedWords) + r'\b', re.IGNORECASE)
-    String = Replacer.sub(ReplaceWord, String)
+def Replace(String, Words, Word):
+    Replacer = re.compile(r'\b' + '|'.join(Words) + r'\b', re.IGNORECASE)
+    String = Replacer.sub(Word, String)
     return String

@@ -8,8 +8,8 @@ while True:
     if InString.lower() == "exit":
         break
 
-    InString = Dict.ReplaceSelect(InString)
-    InString = Dict.ReplaceFrom(InString)
-    InString = Dict.ReplaceStar(InString)
+    InString = Dict.DoReplacing(InString)
+
+    # Create MySQL Syntax
 
     print(InString)
