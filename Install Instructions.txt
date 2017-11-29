@@ -1,0 +1,21 @@
+Installation Instructions for Python + nltk
+
+Install Python 3.6 (NOT 2.7) from here:
+https://www.python.org/downloads/
+
+Install Atom from here:
+atom.io
+Install atom extension:
+Teletype
+atom-python-run
+
+
+Make sure python 3.6 is added to path and 2.7 is not (if you have it installed).
+Open up a command prompt and run the following commands:
+pip install nltk
+pip install numpy
+
+Run installnltk.py
+
+The following atom plugins make coding easier, but are not necessary:
+linter-flake8 (also requires you to run pip install flake8 in cmd)
