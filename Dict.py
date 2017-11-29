@@ -2,6 +2,10 @@ import re
 
 
 def DoReplacing(String):
+    Words = ['a list of ']
+    Word = ''
+    String = Replace(String, Words, Word)
+
     Words = ['give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get']
     Word = 'select'
     String = Replace(String, Words, Word)

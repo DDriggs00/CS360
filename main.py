@@ -8,12 +8,12 @@ InString = input("Please enter a Query or \"Exit\" to quit\n")
 #     if InString.lower() == "exit":
 #         break
 
+InString = Dict.DoReplacing(InString)
+
 tokens = nltk.word_tokenize(InString)
 tagged = nltk.pos_tag(tokens)
-entities = nltk.chunk.ne_chunk(tagged)
 print("\n")
-print(entities)
+print(tagged)
 
-# InString = Dict.DoReplacing(InString)
-# Create MySQL Syntaxtet
+# Create MySQL Syntax
 # print(InString)
