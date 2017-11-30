@@ -2,11 +2,11 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['a list of ']
+    Words = ['\.', '\'', '\"', '\?', '\,', 'a list of ', 'the ', 'that were ', 'that are ']
     Word = ''
     String = Replace(String, Words, Word)
 
-    Words = ['give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get']
+    Words = ['what', 'give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get']
     Word = 'select'
     String = Replace(String, Words, Word)
 
@@ -17,6 +17,10 @@ def DoReplacing(String):
     Words = ['everything', 'all items']
     Word = '\*'
     String = Replace(String, Words, Word)
+
+    # Words = ['before ']
+    # Word = 'where year < '
+    # String = Replace(String, Words, Word)
 
     return String
 
