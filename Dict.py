@@ -18,6 +18,10 @@ def DoReplacing(String):
     Word = '\*'
     String = Replace(String, Words, Word)
 
+    Words = ['all ', 'every ']
+    Word = ''
+    String = Replace(String, Words, Word)
+
     # Words = ['before ']
     # Word = 'where year < '
     # String = Replace(String, Words, Word)
