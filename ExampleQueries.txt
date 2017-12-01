@@ -2,3 +2,7 @@ list every game
 Give me a list of all the games in the database that were made by Nintendo before 2000
 what games did Sega make?
 list all the games that Nintendo made
+How many games did Nintendo make with Mario in the title?
+What year did Sonic come out in? (or "When was Sonic released?")
+How many non Nintendo games were released between 2001 and 2002?
+Show me when both Mario and Sonic first came out.
