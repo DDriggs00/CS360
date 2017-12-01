@@ -1,6 +1,12 @@
-import Dict
-import nltk
-import sys
+import Dict     # Custom Replacements (local file)
+import nltk     # For Parsing
+import sys      # for sys.exit
+
+
+def ReplaceNotFirst(s, old, new, occurrence):
+    li = s.rsplit(old, occurrence)
+    return new.join(li)
+
 
 # GoodDb = False
 # while GoodDb is False:
@@ -11,24 +17,27 @@ import sys
 #         # send "use" + DB to Sql
 #         # if output returned true GoodDb = True
 
-
-# Give me a list of all the games in the database that were made by nintendo before 2000
-# what games did sega make?
-# list all the games that nintendo made
-# list every game
-
 quit = 0
 # while True:
-Str = input("Please enter a Query or \"Exit\" to quit\n")
-if Str.lower() == "exit":
+# s = input("Please enter a Query or \"Exit\" to quit\n")
+s = "Give me a list of all the games in the game database that were made by nintendo before 2000"
+if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
-Str = Dict.DoReplacing(Str)
+s = Dict.DoReplacing(s)
 
-tokens = nltk.word_tokenize(Str)
+if s.lower().find("from database") != -1:
+    print("Please select a valid Database Table (Tables are listed below)")
+    # MySQL Query show tables
+    # continue
+
+s = ReplaceNotFirst(s, 'where', 'and', s.count('where') - 1)
+
+tokens = nltk.word_tokenize(s)
 tagged = nltk.pos_tag(tokens)
-print("\n")
 print(tagged)
+print("\n")
+print(s)
 
 # Create MySQL Syntax
-# print(Str)
+# print(s)

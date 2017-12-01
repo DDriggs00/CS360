@@ -22,9 +22,17 @@ def DoReplacing(String):
     Word = ''
     String = Replace(String, Words, Word)
 
-    # Words = ['before ']
-    # Word = 'where year < '
-    # String = Replace(String, Words, Word)
+    Words = ['made by ', 'published by ']
+    Word = 'where maker = '
+    String = Replace(String, Words, Word)
+
+    Words = ['before ']
+    Word = 'where year < '
+    String = Replace(String, Words, Word)
+
+    Words = ['after ']
+    Word = 'where year > '
+    String = Replace(String, Words, Word)
 
     return String
 
