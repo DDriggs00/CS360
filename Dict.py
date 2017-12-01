@@ -2,7 +2,7 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['\.', '\'', '\"', '\?', '\,', 'a list of ', 'the ', 'that were ', 'that are ']
+    Words = ['\.', '\:', '\;', '\'', '\"', '\?', '\,', 'a list of ', 'the ', 'that were ', 'that are ']
     Word = ''
     String = Replace(String, Words, Word)
 
@@ -37,6 +37,7 @@ def DoReplacing(String):
     return String
 
 
+# Replaces all occurences of all of the words in the Words array with the word in the Word variable
 def Replace(String, Words, Word):
     Replacer = re.compile(r'\b' + '|'.join(Words) + r'\b', re.IGNORECASE)
     String = Replacer.sub(Word, String)
