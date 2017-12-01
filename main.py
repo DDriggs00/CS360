@@ -43,13 +43,13 @@ if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
 
-if s.lower().find("from database") != -1:
-    print("Please select a valid Database Table (Tables are listed below)")
-    showTablesQuery = "show tables;"
-    cursor.execute(showTablesQuery)  # executes query, we could also just have a static list to print out
-    allTables = cursor.fetchall()
-    print('\n', allTables, '\n')
-    # continue
+# if s.lower().find("from database") != -1:
+#     print("Please select a valid Database Table (Tables are listed below)")
+#     showTablesQuery = "show tables;"
+#     cursor.execute(showTablesQuery)  # executes query, we could also just have a static list to print out
+#     allTables = cursor.fetchall()
+#     print('\n', allTables, '\n')
+#     # continue
 
 s = queryBuilder.buildQuery(s)  # should be of form select..from..where
 

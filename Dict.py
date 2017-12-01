@@ -6,12 +6,12 @@ def DoReplacing(String):
     Word = ''   # Words to be Removed
     String = Replace(String, Words, Word)
 
-    Words = ['what', 'give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get']
+    Words = ['what', 'give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get', 'select']
     Word = 'select'  # Words that mean Select
     String = Replace(String, Words, Word)
 
-    Words = ['that are in', 'contained in', 'in']
-    Word = 'From'   # Words that mean From
+    Words = ['that are in ', 'contained in ', 'in ', 'from ']
+    Word = 'from '   # Words that mean From
     String = Replace(String, Words, Word)
 
     Words = ['everything', 'all items']
@@ -19,10 +19,10 @@ def DoReplacing(String):
     String = Replace(String, Words, Word)
 
     Words = ['all ', 'every ']
-    Word = ''       # Words to remove
+    Word = ''       # Words to remove after replacing others
     String = Replace(String, Words, Word)
 
-    Words = ['made by ', 'published by ']
+    Words = ['made by ', 'published by ', 'designed by ', 'where publisher = ']
     Word = 'where Publisher = '
     String = Replace(String, Words, Word)
 
