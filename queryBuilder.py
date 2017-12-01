@@ -1,7 +1,7 @@
 import Dict             # Custom Replacements (local file)
+from tenses import pluralize, singularize
 
 import nltk             # For Parsing
-from pattern.en import pluralize, singularize
 
 
 def buildQuery(s):
