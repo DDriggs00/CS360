@@ -18,12 +18,14 @@ def buildQuery(s):
         tokens = nltk.word_tokenize(s)
 
     # if there is no "from"
-    if s.find('from') == -1 and s.find('select') != -1:
-        temp = tokens[tokens.index('select') + 1]
-        temps = singularize(temp)
-        tempp = pluralize(temps)
-        s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
-        tokens = nltk.word_tokenize(s)
+    if s.find('from') == -1:
+        if s.find('select') != -1:
+            temp = tokens[tokens.index('select') + 1]
+            temps = singularize(temp)
+            tempp = pluralize(temps)
+            s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
+            print(s)
+            tokens = nltk.word_tokenize(s)
 
     tagged = nltk.pos_tag(tokens)
     print(tagged)
@@ -46,8 +48,15 @@ def manageStringVars(s, sList):
             if sList[w + 1].isdigit():
                 continue
             else:
-                sList[w + 1] = '\"' + sList[w + 1] + '\"'
-                # sList[w + 1] = '"{}"'.format(sList[w + 1])
+                sList[w + 1] = '\"' + sList[w + 1]
+                counter = w + 1
+                while !isEndofString(sList[counter]):
+                    if 'and' in sList[counter]: # 'and' could be part of title or sql operator
+                        if isComparisonOperator(sList[counter + 2]): # 'and' not part of title
+                            sList[counter -1] = sList[counter -1] + '\"' # end of string
+                            break # done with loop
+                    sList[counter] = sList[counter]
+                    counter++
 
     s = ' '.join(sList)
     return s
@@ -56,6 +65,13 @@ def manageStringVars(s, sList):
 def isComparisonOperator(w):
     compOps = ['=', '<', '>', '>=', '>=']
     if w in compOps:
+        return True
+    else:
+        return False
+
+def isEndofString(w):
+    endOS = [';', ',']
+    if w in endOS:
         return True
     else:
         return False
