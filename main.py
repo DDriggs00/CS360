@@ -31,11 +31,11 @@ while GoodCon is False:
 # Select Database
 GoodDB = False
 while not GoodDB:
-    print('\n')
-    cursor.execute('show databases')
-    output = cursor.fetchall()
-    for row in output:
-        print(row[0])
+    # print('\n')
+    # cursor.execute('show databases')
+    # output = cursor.fetchall()
+    # for row in output:
+    #     print(row[0])
     # DB = input("Select Database to use from the list above: ")
     DB = 'Gamedb'
     try:
@@ -51,7 +51,7 @@ s = "How many games did Nintendo make with Mario in the title?"
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
-s = queryBuilder.buildQuery(s)  # should be of form select..from..where
+s = queryBuilder.buildQuery(s)  # should be of form select..from..whereaa
 
 try:
     cursor.execute(s)

@@ -30,11 +30,11 @@ def buildQuery(s):
         if tokens[tokens.index('from') + 1] not in tables:
             s = noTableName(s, tables, tokens[tokens.index('from') + 1])
 
-    s = s + ';'
+    if s[-1] != ';':
+        s = s + ';'
     tokens = s.split(' ')
     # tokens = nltk.word_tokenize(s)
-    tagged = nltk.pos_tag(tokens)
-    print(tagged)
+    # tagged = nltk.pos_tag(tokens)
 
     print(s)
     s = manageStringVars(s, tokens)
