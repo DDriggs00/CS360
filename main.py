@@ -5,32 +5,45 @@ import mysql.connector  # for querying db
 from mysql.connector import errorcode  # for handling bad connections, etc.
 
 
-# Connect to DB
-GoodDb = False
-while GoodDb is False:
+# Connect to Server
+GoodCon = False
+while GoodCon is False:
     # IP = input("Select Server IP or \"Exit\" to quit: ")
     # if IP.lower() == "exit":
     #     sys.exit("Have a nice Day :)")
     # User = input("Username: ")
     # Pass = input("Password: ")
-    # DB = input("Select Database to use: ")
     User = 'root'
     Pass = 'Password1'
     IP = 'localhost'
-    DB = 'Gamedb'
     try:  # try statement to ensure connection is valid
-        dbcon = mysql.connector.connect(user=User, password=Pass, host=IP, database=DB)
+        dbcon = mysql.connector.connect(user=User, password=Pass, host=IP)
     except mysql.connector.Error as err:
-        GoodDb = False  # since connecting threw error
+        GoodCon = False  # since connecting threw error
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             print("Invalid credentials\n")
-        elif err.errno == errorcode.ER_BAD_DB_ERROR:
-            print(DB + " is an invalid database name\n")  # maybe print name of valid db?
         else:
             print("Error with connecting to db: ", err, '\n')
     else:
-        GoodDb = True  # no errors caught, db is good
+        GoodCon = True  # no errors caught, db is good
         cursor = dbcon.cursor()  # used to query db
+
+# Select Database
+GoodDB = False
+while not GoodDB:
+    print('\n')
+    cursor.execute('show databases')
+    output = cursor.fetchall()
+    for row in output:
+        print(row[0])
+    # DB = input("Select Database to use from the list above: ")
+    DB = 'Gamedb'
+    try:
+        cursor.execute('use ' + DB)
+    except mysql.connector.Error:
+        print(DB + " is an invalid database")
+    else:
+        GoodDB = True
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
@@ -39,7 +52,6 @@ if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
 s = queryBuilder.buildQuery(s)  # should be of form select..from..where
-
 
 try:
     cursor.execute(s)
