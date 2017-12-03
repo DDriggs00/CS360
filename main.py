@@ -1,6 +1,5 @@
 import queryBuilder     # Dynamically builds query (local file)
 
-# import nltk             # For Parsing
 import sys              # for sys.exit
 import mysql.connector  # for querying db
 from mysql.connector import errorcode  # for handling bad connections, etc.
@@ -37,7 +36,7 @@ while GoodDb is False:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = "what games did Sega make?"
+s = "What year did Sonic come out in?"
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 

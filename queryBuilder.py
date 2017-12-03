@@ -18,14 +18,12 @@ def buildQuery(s):
         tokens = nltk.word_tokenize(s)
 
     # if there is no "from"
-    if s.find('from') == -1:
-        if s.find('select') != -1:
-            temp = tokens[tokens.index('select') + 1]
-            temps = singularize(temp)
-            tempp = pluralize(temps)
-            s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
-            print(s)
-            tokens = nltk.word_tokenize(s)
+    if s.find('from') == -1 and s.find('select') != -1:
+        temp = tokens[tokens.index('select') + 1]
+        temps = singularize(temp)
+        tempp = pluralize(temps)
+        s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
+        tokens = nltk.word_tokenize(s)
 
     tagged = nltk.pos_tag(tokens)
     print(tagged)
