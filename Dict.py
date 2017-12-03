@@ -26,14 +26,15 @@ def DoReplacing(String):
     Word = 'where Publisher = '
     String = Replace(String, Words, Word)
 
-    # Replace did * make
     Words = []
     Word = ''
+    # Replace did * make
     if String.find('did') != -1 and String.find('make') != -1:
         middle = re.findall(r'did(.*?)make', String)[0]
         Words.append('did' + middle + 'make')
         Word = 'where publisher = ' + middle.strip()
         String = Replace(String, Words, Word)
+    # Replace that * made
     if String.find('that') != -1 and String.find('made') != -1:
         middle = re.findall(r'that(.*?)made', String)[0]
         Words = ['that' + middle + 'made']

@@ -18,14 +18,18 @@ def buildQuery(s):
         tokens = nltk.word_tokenize(s)
 
     # if there is no "from"
-    if s.find('from') == -1:
-        s = noTableName(s)
-        if s.find('select') != -1:
-            temp = tokens[tokens.index('select') + 1]
-            temps = singularize(temp)
-            tempp = pluralize(temps)
-            s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
-            print(s)
+    if s.find('from') == -1 and s.find('select') != -1:
+        temp = tokens[tokens.index('select') + 1]
+        temps = singularize(temp)
+        tempp = pluralize(temps)
+        s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
+        print(s)
+        tokens = nltk.word_tokenize(s)
+
+        tables = ['games', 'systems']   # Actually generate tables from db later
+        if tokens[tokens.index('from') + 1] not in tables:
+            print(tokens[tokens.index('from') + 1])
+            s = noTableName(s, tables, tokens[tokens.index('from') + 1])
             tokens = nltk.word_tokenize(s)
 
     tagged = nltk.pos_tag(tokens)
@@ -42,27 +46,23 @@ def ReplaceNotFirst(s, old, new):
     li = s.rsplit(old, s.count(old) - 1)
     return new.join(li)
 
-def noTableName(s):
-    print("Are you asking about games or systems?")
 
+def noTableName(s, tables, BadName):
+    print("Which of the following tables is that related to?")
+    print(tables)
     validTable = False
     tableName = "INVALID"
     while validTable is False:
-        tableName = input("Subject to ask about: ")
-        if tableName not in ['games', 'systems']:
-            print("Sorry, the Database doesn't have info on " + tableName + " please try again.")
+        tableName = input("Table: ")
+        if tableName not in tables:
+            print("Sorry, " + tableName + " is not a valid table name. Please enter a value from above.")
         else:
             validTable = True
-    splitQuery = s.split('where')
-    tableName = tableName.capitalize()
-    fromClause = 'from ' + tableName
-    if len(splitQuery) == 1:
-        s = s + tableName + ';'
-        return s
-    else:
-        splitQuery[0] = splitQuery[0] + fromClause + ' '
-        s = splitQuery[0] + splitQuery[1]
-        return s
+    tableName = tableName.lower().capitalize()
+    print(BadName, tableName)
+    s = Dict.Replace(s, [BadName], tableName)
+    return(s)
+
 
 def manageStringVars(s, sList):
     for w in range(len(sList)):
@@ -72,16 +72,17 @@ def manageStringVars(s, sList):
             else:
                 sList[w + 1] = '\"' + sList[w + 1]
                 counter = w + 1
-                while !isEndofString(sList[counter]):
-                    if 'and' in sList[counter]: # 'and' could be part of title or sql operator
-                        if isComparisonOperator(sList[counter + 2]): # 'and' not part of title
-                            sList[counter -1] = sList[counter -1] + '\"' # end of string
-                            break # done with loop
+                while not isEndofString(sList[counter]):
+                    if sList[counter].find('and'):  # 'and' could be part of title or sql operator
+                        if isComparisonOperator(sList[counter + 2]):  # 'and' not part of title
+                            sList[counter - 1] = sList[counter - 1] + '\"'  # end of string
+                            break  # done with loop
                     sList[counter] = sList[counter]
-                    counter++
+                    counter += 1
 
     s = ' '.join(sList)
     return s
+
 
 def isComparisonOperator(w):
     compOps = ['=', '<', '>', '>=', '>=']
@@ -89,6 +90,7 @@ def isComparisonOperator(w):
         return True
     else:
         return False
+
 
 def isEndofString(w):
     endOS = [';', ',']
