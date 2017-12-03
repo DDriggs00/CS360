@@ -43,23 +43,24 @@ def ReplaceNotFirst(s, old, new):
     return new.join(li)
 
 def noTableName(s):
-    print("Table is not defined, which of the following tables would you like to query?")
-    print("Games       Systems")
+    print("Are you asking about games or systems?")
 
     validTable = False
     tableName = "INVALID"
     while validTable is False:
-        tableName = input("Table Name: ")
-        if tableName not in ['Games', 'Systems']:
+        tableName = input("Subject to ask about: ")
+        if tableName not in ['games', 'systems']:
             print("Sorry, the Database doesn't have info on " + tableName + " please try again.")
         else:
             validTable = True
     splitQuery = s.split('where')
+    tableName = tableName.capitalize()
+    fromClause = 'from ' + tableName
     if len(splitQuery) == 1:
-        s = s + 'from ' + tableName + ';'
+        s = s + tableName + ';'
         return s
     else:
-        splitQuery[0] = splitQuery[0] + 'from ' + tableName + ' '
+        splitQuery[0] = splitQuery[0] + fromClause + ' '
         s = splitQuery[0] + splitQuery[1]
         return s
 
