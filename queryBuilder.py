@@ -12,7 +12,7 @@ def buildQuery(s):
 
     tokens = nltk.word_tokenize(s)
 
-    # Remove genaric database references
+    # Remove generic database references
     if s.lower().find("from database") != -1:
         s = Dict.Replace(s, [" from database"], '')
         tokens = nltk.word_tokenize(s)
@@ -28,9 +28,8 @@ def buildQuery(s):
 
     tagged = nltk.pos_tag(tokens)
     print(tagged)
-    print("\n")
-    sList = s.split(' ')  # list for finding and adding quotes where necessary
-    s = manageStringVars(s, sList)
+    
+    s = manageStringVars(s, tokens)
     # above func takes in string and list, looks for operator and if the following
     # string is not a digit, then the function will add quotes to it
 
