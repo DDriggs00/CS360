@@ -29,7 +29,6 @@ while GoodDb is False:
             print("Invalid credentials\n")
         elif err.errno == errorcode.ER_BAD_DB_ERROR:
             print(DB + " is an invalid database name\n")  # maybe print name of valid db?
-            # Query: show databases?
         else:
             print("Error with connecting to db: ", err, '\n')
     else:
@@ -38,18 +37,9 @@ while GoodDb is False:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = "list every game"
+s = "what games did Sega make?"
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
-
-
-# if s.lower().find("from database") != -1:
-#     print("Please select a valid Database Table (Tables are listed below)")
-#     showTablesQuery = "show tables;"
-#     cursor.execute(showTablesQuery)  # executes query, we could also just have a static list to print out
-#     allTables = cursor.fetchall()
-#     print('\n', allTables, '\n')
-#     # continue
 
 s = queryBuilder.buildQuery(s)  # should be of form select..from..where
 

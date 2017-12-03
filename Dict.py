@@ -26,6 +26,12 @@ def DoReplacing(String):
     Word = 'where Publisher = '
     String = Replace(String, Words, Word)
 
+    # Replace did * make
+    middle = re.findall(r'did(.*?)make', String)[0]
+    Words = ['did' + middle + 'make']
+    Word = 'where publisher = ' + middle.strip()
+    String = Replace(String, Words, Word)
+
     Words = ['before ']
     Word = 'where year < '
     String = Replace(String, Words, Word)
@@ -38,6 +44,7 @@ def DoReplacing(String):
 
 
 # Replaces all occurences of all of the words in the Words array with the word in the Word variable
+# Not Case Sensitive
 def Replace(String, Words, Word):
     Replacer = re.compile(r'\b' + '|'.join(Words) + r'\b', re.IGNORECASE)
     String = Replacer.sub(Word, String)

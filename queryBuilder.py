@@ -2,6 +2,7 @@ import Dict             # Custom Replacements (local file)
 from tenses import pluralize, singularize
 
 import nltk             # For Parsing
+# import re
 
 
 def buildQuery(s):
@@ -9,16 +10,21 @@ def buildQuery(s):
     s = s.strip()   # Remove Leading and Trailing Whitespace
     s = ReplaceNotFirst(s, 'where', 'and')
 
-    tokens = s.split(' ')
+    tokens = nltk.word_tokenize(s)
 
-    # if there is no "find"
-    if s.lower().find('from') == -1:
+    # Remove ganaric database references
+    if s.lower().find("from database") != -1:
+        s = Dict.Replace(s, [" from database"], '')
+        tokens = nltk.word_tokenize(s)
+
+    # if there is no "from"
+    if s.find('from') == -1 & s.find('from') != -1:
         temp = tokens[tokens.index('select') + 1]
         temps = singularize(temp)
         tempp = pluralize(temps)
         s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
         print(s)
-        tokens = s.split(' ')
+        tokens = nltk.word_tokenize(s)
 
     tagged = nltk.pos_tag(tokens)
     print(tagged)
