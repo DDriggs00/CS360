@@ -19,6 +19,7 @@ def buildQuery(s):
 
     # if there is no "from"
     if s.find('from') == -1:
+        s = noTableName(s)
         if s.find('select') != -1:
             temp = tokens[tokens.index('select') + 1]
             temps = singularize(temp)
@@ -41,6 +42,26 @@ def ReplaceNotFirst(s, old, new):
     li = s.rsplit(old, s.count(old) - 1)
     return new.join(li)
 
+def noTableName(s):
+    print("Table is not defined, which of the following tables would you like to query?")
+    print("Games       Systems")
+
+    validTable = False
+    tableName = "INVALID"
+    while validTable is False:
+        tableName = input("Table Name: ")
+        if tableName not in ['Games', 'Systems']:
+            print("Sorry, the Database doesn't have info on " + tableName + " please try again.")
+        else:
+            validTable = True
+    splitQuery = s.split('where')
+    if len(splitQuery) == 1:
+        s = s + 'from ' + tableName + ';'
+        return s
+    else:
+        splitQuery[0] = splitQuery[0] + 'from ' + tableName + ' '
+        s = splitQuery[0] + splitQuery[1]
+        return s
 
 def manageStringVars(s, sList):
     for w in range(len(sList)):
@@ -60,7 +81,6 @@ def manageStringVars(s, sList):
 
     s = ' '.join(sList)
     return s
-
 
 def isComparisonOperator(w):
     compOps = ['=', '<', '>', '>=', '>=']
