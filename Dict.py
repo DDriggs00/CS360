@@ -2,8 +2,12 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['\.', '\:', '\;', '\'', '\"', '\?', '\,', 'a list of ', 'that were ', 'that are ', 'the ']
+    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ']
     Word = ''   # Words to be Removed
+    String = Replace(String, Words, Word)
+
+    Words = ['when ']
+    Word = 'select year '   # Words to be Removed
     String = Replace(String, Words, Word)
 
     Words = ['what', 'give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get', 'select']
@@ -38,6 +42,7 @@ def DoReplacing(String):
     Word = 'release'
     String = Replace(String, Words, Word)
 
+    Words = []
     # Replace that * made
     if String.find('that') != -1 and String.find('made') != -1:
         middle = re.findall(r'that(.*?)made', String)[0]
@@ -45,6 +50,7 @@ def DoReplacing(String):
         Word = 'where publisher = ' + middle.strip()
         String = Replace(String, Words, Word)
 
+    Words = []
     # Replace was * released
     if String.find('was') != -1 and String.find('release') != -1:
         middle = re.findall(r'was(.*?)release', String)[0]
@@ -52,6 +58,7 @@ def DoReplacing(String):
         Word = 'where game = ' + middle.strip()
         String = Replace(String, Words, Word)
 
+    Words = []
     # Replace did * release
     if String.find('did') != -1 and String.find('release') != -1:
         middle = re.findall(r'did(.*?)release', String)[0]
@@ -62,12 +69,26 @@ def DoReplacing(String):
             Word = 'where Publisher = ' + middle.strip()
         String = Replace(String, Words, Word)
 
+    Words = []
     # Replace did * make
     if String.find('did') != -1 and String.find('make') != -1:
         middle = re.findall(r'did(.*?)make', String)[0]
         Words.append('did' + middle + 'make')
         Word = 'where publisher = ' + middle.strip()
         String = Replace(String, Words, Word)
+
+    Words = []
+    # Replace with * in title
+    if String.find('with') != -1 and String.find('from title') != -1:
+        middle = re.findall(r'with(.*?)from title', String)[0]
+        Words = ['with' + middle + 'from title']
+        if String.find('game') != -1:
+            Word = 'where game like ' + middle.strip()
+        else:
+            Word = 'where System like ' + middle.strip()
+        String = Replace(String, Words, Word)
+        String = String.replace(middle.strip(), '\"%' + middle.strip() + '%\"')
+        print(String)
 
     return String
 

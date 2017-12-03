@@ -23,20 +23,21 @@ def buildQuery(s):
         temps = singularize(temp)
         tempp = pluralize(temps)
         s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
-        print(s)
+
         tokens = nltk.word_tokenize(s)
 
         tables = ['games', 'systems']   # Actually generate tables from db later
         if tokens[tokens.index('from') + 1] not in tables:
-            print(tokens[tokens.index('from') + 1])
             s = noTableName(s, tables, tokens[tokens.index('from') + 1])
 
     s = s + ';'
-    tokens = nltk.word_tokenize(s)
+    tokens = s.split(' ')
+    # tokens = nltk.word_tokenize(s)
     tagged = nltk.pos_tag(tokens)
     print(tagged)
 
     s = manageStringVars(s, tokens)
+    print(s)
     # above func takes in string and list, looks for operator and if the following
     # string is not a digit, then the function will add quotes to it
 
@@ -49,7 +50,7 @@ def ReplaceNotFirst(s, old, new):
 
 
 def noTableName(s, tables, BadName):
-    print("Which of the following tables is that related to?")
+    print("Which of the following tables is that most related to?")
     print(tables)
     validTable = False
     tableName = "INVALID"
@@ -60,7 +61,6 @@ def noTableName(s, tables, BadName):
         else:
             validTable = True
     tableName = tableName.lower().capitalize()
-    print(BadName, tableName)
     s = s.replace(BadName, tableName, 1)
     return(s)
 
@@ -74,13 +74,13 @@ def manageStringVars(s, sList):
                 sList[w + 1] = '\"' + sList[w + 1]
                 counter = w + 1
 
-                while not isEndofString(sList[counter]):
-                    if sList[counter].find('and') != -1:  # 'and' could be part of title or sql operator
+                while not isEndofString(sList[counter]):    # index out of range error
+                    if sList[counter].find('and') != -1:    # 'and' could be part of title or sql operator
                         if isComparisonOperator(sList[counter + 2]):    # 'and' not part of title
                             sList[counter - 1] = sList[counter - 1] + '\"'  # end of string
                             break  # done with loop
                     counter += 1
-                    
+
     s = ' '.join(sList)
     return s
 

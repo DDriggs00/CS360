@@ -36,7 +36,7 @@ while GoodDb is False:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = "What year did Sonic come out in?"
+s = "How many games did Nintendo make with Mario in the title?"
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
