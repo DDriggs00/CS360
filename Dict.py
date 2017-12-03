@@ -26,14 +26,18 @@ def DoReplacing(String):
     Word = 'where Publisher = '
     String = Replace(String, Words, Word)
 
-    Words = []
-    Word = ''
-    # Replace did * make
-    if String.find('did') != -1 and String.find('make') != -1:
-        middle = re.findall(r'did(.*?)make', String)[0]
-        Words.append('did' + middle + 'make')
-        Word = 'where publisher = ' + middle.strip()
-        String = Replace(String, Words, Word)
+    Words = ['before ', 'prior to ']
+    Word = 'where year < '
+    String = Replace(String, Words, Word)
+
+    Words = ['after ']
+    Word = 'where year > '
+    String = Replace(String, Words, Word)
+
+    Words = ['come out in', 'come out', 'get released', 'released', 'release', ]
+    Word = 'release'
+    String = Replace(String, Words, Word)
+
     # Replace that * made
     if String.find('that') != -1 and String.find('made') != -1:
         middle = re.findall(r'that(.*?)made', String)[0]
@@ -41,13 +45,29 @@ def DoReplacing(String):
         Word = 'where publisher = ' + middle.strip()
         String = Replace(String, Words, Word)
 
-    Words = ['before ']
-    Word = 'where year < '
-    String = Replace(String, Words, Word)
+    # Replace was * released
+    if String.find('was') != -1 and String.find('release') != -1:
+        middle = re.findall(r'was(.*?)release', String)[0]
+        Words = ['was' + middle + 'release']
+        Word = 'where game = ' + middle.strip()
+        String = Replace(String, Words, Word)
 
-    Words = ['after ']
-    Word = 'where year > '
-    String = Replace(String, Words, Word)
+    # Replace did * release
+    if String.find('did') != -1 and String.find('release') != -1:
+        middle = re.findall(r'did(.*?)release', String)[0]
+        Words = ['did' + middle + 'release']
+        if String.find('game') == -1:
+            Word = 'where game = ' + middle.strip()
+        else:
+            Word = 'where Publisher = ' + middle.strip()
+        String = Replace(String, Words, Word)
+
+    # Replace did * make
+    if String.find('did') != -1 and String.find('make') != -1:
+        middle = re.findall(r'did(.*?)make', String)[0]
+        Words.append('did' + middle + 'make')
+        Word = 'where publisher = ' + middle.strip()
+        String = Replace(String, Words, Word)
 
     return String
 

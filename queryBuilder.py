@@ -30,8 +30,9 @@ def buildQuery(s):
         if tokens[tokens.index('from') + 1] not in tables:
             print(tokens[tokens.index('from') + 1])
             s = noTableName(s, tables, tokens[tokens.index('from') + 1])
-            tokens = nltk.word_tokenize(s)
 
+    s = s + ';'
+    tokens = nltk.word_tokenize(s)
     tagged = nltk.pos_tag(tokens)
     print(tagged)
 
@@ -60,7 +61,7 @@ def noTableName(s, tables, BadName):
             validTable = True
     tableName = tableName.lower().capitalize()
     print(BadName, tableName)
-    s = Dict.Replace(s, [BadName], tableName)
+    s = s.replace(BadName, tableName, 1)
     return(s)
 
 
@@ -72,14 +73,14 @@ def manageStringVars(s, sList):
             else:
                 sList[w + 1] = '\"' + sList[w + 1]
                 counter = w + 1
+
                 while not isEndofString(sList[counter]):
-                    if sList[counter].find('and'):  # 'and' could be part of title or sql operator
-                        if isComparisonOperator(sList[counter + 2]):  # 'and' not part of title
+                    if sList[counter].find('and') != -1:  # 'and' could be part of title or sql operator
+                        if isComparisonOperator(sList[counter + 2]):    # 'and' not part of title
                             sList[counter - 1] = sList[counter - 1] + '\"'  # end of string
                             break  # done with loop
-                    sList[counter] = sList[counter]
                     counter += 1
-
+                    
     s = ' '.join(sList)
     return s
 
