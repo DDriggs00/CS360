@@ -38,7 +38,7 @@ while GoodDb is False:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = "Give me a list of all the games that were made by nintendo before 2000"
+s = "list every game"
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
@@ -59,8 +59,9 @@ try:
 except mysql.connector.Error:
     print("Query: \"" + s + "\" Failed to Execute")
 else:
-    output = cursor.fetchall
-    print(output)
+    output = cursor.fetchall()
+    for row in output:
+        print(row[0])
 
 cursor.close()  # close cursor, bad form to keep open
 dbcon.close()   # close connection, bad form to keep open

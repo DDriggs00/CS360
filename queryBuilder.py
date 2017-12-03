@@ -14,9 +14,11 @@ def buildQuery(s):
     # if there is no "find"
     if s.lower().find('from') == -1:
         temp = tokens[tokens.index('select') + 1]
-        temp2 = singularize(temp)
-        temp = pluralize(temp2)
-        s = s.replace('select ' + temp, 'select ' + temp2 + ' from ' + temp)
+        temps = singularize(temp)
+        tempp = pluralize(temps)
+        s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
+        print(s)
+        tokens = s.split(' ')
 
     tagged = nltk.pos_tag(tokens)
     print(tagged)
