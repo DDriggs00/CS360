@@ -28,7 +28,7 @@ def buildQuery(s):
 
     tagged = nltk.pos_tag(tokens)
     print(tagged)
-    
+
     s = manageStringVars(s, tokens)
     # above func takes in string and list, looks for operator and if the following
     # string is not a digit, then the function will add quotes to it
@@ -47,7 +47,8 @@ def manageStringVars(s, sList):
             if sList[w + 1].isdigit():
                 continue
             else:
-                sList[w + 1] = '"{}"'.format(sList[w + 1])
+                sList[w + 1] = '\"' + sList[w + 1] + '\"'
+                # sList[w + 1] = '"{}"'.format(sList[w + 1])
 
     s = ' '.join(sList)
     return s
