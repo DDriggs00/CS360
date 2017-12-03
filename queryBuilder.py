@@ -12,7 +12,7 @@ def buildQuery(s):
 
     tokens = nltk.word_tokenize(s)
 
-    # Remove ganaric database references
+    # Remove genaric database references
     if s.lower().find("from database") != -1:
         s = Dict.Replace(s, [" from database"], '')
         tokens = nltk.word_tokenize(s)
@@ -29,7 +29,7 @@ def buildQuery(s):
     tagged = nltk.pos_tag(tokens)
     print(tagged)
     print("\n")
-    sList = s.split(' ') # list for finding and adding quotes where necessary
+    sList = s.split(' ')  # list for finding and adding quotes where necessary
     s = manageStringVars(s, sList)
     # above func takes in string and list, looks for operator and if the following
     # string is not a digit, then the function will add quotes to it
@@ -41,16 +41,18 @@ def ReplaceNotFirst(s, old, new):
     li = s.rsplit(old, s.count(old) - 1)
     return new.join(li)
 
+
 def manageStringVars(s, sList):
     for w in range(len(sList)):
         if isComparisonOperator(sList[w]):
-            if sList[w+1].isdigit():
+            if sList[w + 1].isdigit():
                 continue
             else:
-                sList[w+1] = '"{}"'.format(sList[w+1])
+                sList[w + 1] = '"{}"'.format(sList[w + 1])
 
     s = ' '.join(sList)
     return s
+
 
 def isComparisonOperator(w):
     compOps = ['=', '<', '>', '>=', '>=']
