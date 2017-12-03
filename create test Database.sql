@@ -22,9 +22,9 @@ CREATE TABLE Games
 #########################
 CREATE TABLE Systems
 (
-  System    varchar(50) ,
+  System    varchar(50) NOT NULL,
   Type      varchar(50) ,
   Creator   varchar(50) ,
-  YearMade  int NOT NULL ,
+  YearMade  int,
   PRIMARY KEY (System)
 );

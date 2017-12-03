@@ -14,6 +14,10 @@ def DoReplacing(String):
     Word = 'select'  # Words that mean Select
     String = Replace(String, Words, Word)
 
+    Words = ['How Many']
+    Word = r'select count(*) from'  # Words that mean Select
+    String = Replace(String, Words, Word)
+
     Words = ['that are in ', 'contained in ', 'in ', 'from ']
     Word = 'from '   # Words that mean From
     String = Replace(String, Words, Word)
@@ -88,7 +92,6 @@ def DoReplacing(String):
             Word = 'where System like ' + middle.strip()
         String = Replace(String, Words, Word)
         String = String.replace(middle.strip(), '\"%' + middle.strip() + '%\"')
-        print(String)
 
     return String
 

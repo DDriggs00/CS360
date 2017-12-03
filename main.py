@@ -5,8 +5,6 @@ import mysql.connector  # for querying db
 from mysql.connector import errorcode  # for handling bad connections, etc.
 
 
-# Replace all occurances starting with the second
-
 # Connect to DB
 GoodDb = False
 while GoodDb is False:

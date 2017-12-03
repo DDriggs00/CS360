@@ -36,14 +36,15 @@ def buildQuery(s):
     tagged = nltk.pos_tag(tokens)
     print(tagged)
 
-    s = manageStringVars(s, tokens)
     print(s)
+    s = manageStringVars(s, tokens)
     # above func takes in string and list, looks for operator and if the following
     # string is not a digit, then the function will add quotes to it
 
     return s
 
 
+# Replace all occurances starting with the second
 def ReplaceNotFirst(s, old, new):
     li = s.rsplit(old, s.count(old) - 1)
     return new.join(li)
