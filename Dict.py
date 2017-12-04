@@ -2,12 +2,24 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ', 'were ', 'are ', 'in the database ', 'in database ']
+    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ', 'were ', 'are ', 'in the database ', 'in database ', 'from the database ', 'from database ']
     Word = ''   # Words to be Removed
     String = Replace(String, Words, Word)
 
     Words = ['when ']
-    Word = 'select year '   # Words to be Removed
+    Word = 'select year '
+    String = Replace(String, Words, Word)
+
+    Words = [' have ']
+    Word = ' with '
+    String = Replace(String, Words, Word)
+
+    Words = ['who ', 'what company', 'what studio ']
+    Word = 'select Publisher '   # Words to be Removed
+    String = Replace(String, Words, Word)
+
+    Words = ['what system ', 'what console ', 'what hardware ']
+    Word = 'select system from games '   # Words that mean From
     String = Replace(String, Words, Word)
 
     Words = ['what', 'give me', 'show me', 'list', 'show', 'print out', 'display', 'retrieve', 'get', 'select']
@@ -16,6 +28,10 @@ def DoReplacing(String):
 
     Words = ['How Many']
     Word = r'select count(*) from'  # Words that mean Select
+    String = Replace(String, Words, Word)
+
+    Words = ['How Much did', 'how much was ', 'how much ']
+    Word = 'select Price from '  # Words that mean Select
     String = Replace(String, Words, Word)
 
     Words = ['that are in ', 'contained in ', 'from ']
@@ -32,6 +48,10 @@ def DoReplacing(String):
 
     Words = ['made by ', 'published by ', 'designed by ', 'where publisher = ']
     Word = 'where Publisher = '
+    String = Replace(String, Words, Word)
+
+    Words = ['made ', 'published ', 'designed ', 'where Game = ']
+    Word = 'where game = '
     String = Replace(String, Words, Word)
 
     Words = ['before ', 'prior to ']
@@ -63,10 +83,28 @@ def DoReplacing(String):
         String = Replace(String, Words, Word)
 
     Words = []
+    # Replace from * games
+    if String.find('from') != -1 and String.find('games') != -1:
+        middle = re.findall(r'from(.*?)games', String)[0]
+        if re.search('[a-zA-Z]', String):
+            Words = ['from' + middle + 'games']
+            Word = 'from games where publisher = ' + middle.strip()
+            String = Replace(String, Words, Word)
+
+    Words = []
     # Replace was * released
     if String.find('was') != -1 and String.find('release') != -1:
         middle = re.findall(r'was(.*?)release', String)[0]
         Words = ['was' + middle + 'release']
+        Word = 'where game = ' + middle.strip()
+        String = Replace(String, Words, Word)
+
+    Words = []
+    # Replace was * on
+    if String.find('was') != -1 and String.find(' on') != -1:
+        middle = re.findall(r'was(.*?) on', String)[0]
+        print(middle)
+        Words = ['was' + middle + ' on']
         Word = 'where game = ' + middle.strip()
         String = Replace(String, Words, Word)
 

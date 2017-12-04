@@ -1,23 +1,24 @@
+Y How many games did Nintendo make with Mario in the title?
+Y How many games were released in 2002?
+Y How many games were released between 2001 and 2002?
+Y What games have M in the title?
+Y How many games were released in 2000?
+Y What studio made Sonic?
+Y What system was sonic on?
 Y list every game
 Y Give me a list of all the games in the database that were made by Nintendo before 2000
 Y what games did Sega make?
 Y list all the games that Nintendo made
 Z What year did Sonic come out in?
+Z Who made sonic?
+Z Who made the DS?
 Z When was Sonic released?
-Y How many games did Nintendo make with Mario in the title?
-Y How many games were released in 2002?
-Y How many games were released between 2001 and 2002?
 Show me when both Mario and Sonic first came out.
-How many Nintendo games were released between 2001 and 2002?
 How many non Nintendo games were released between 2001 and 2002?
 What games were made by Larian Studios in 2000?
 How much did Divinity Original Sin 2 Cost?
 Did Sega make any games in 2000?
-What games have M in the title?
-How many games were released in 2000?
-What studio made Sonic?
-Who made sonic?
-What system was sonic on?
+X How many Nintendo games were released between 2001 and 2002?
 
 X = Not working, weird added stuff to different clauses
 Y = Completely Working

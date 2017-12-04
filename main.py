@@ -47,17 +47,18 @@ while not GoodDB:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = 'What games were made by Larian Studios in 2000?'
+s = 'How much did Divinity Original Sin 2 Cost?'
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
 s = queryBuilder.buildQuery(s)  # should be of form select..from..where
-
+print('\nYour Query was compiled to: \n' + s + '\nIf This is not what you meant, try re-wording your query.\n')
 try:
     cursor.execute(s)
 except mysql.connector.Error:
-    print("Query: \"" + s + "\" Failed to Execute")
+    print("Query Failed to Execute.")
 else:
+    print('Query Results:')
     output = cursor.fetchall()
     for row in output:
         print(row[0])
