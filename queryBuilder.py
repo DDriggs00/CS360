@@ -70,19 +70,22 @@ def manageStringVars(s, sList):
     endVarlst = endVarstr.split(';')
     sList.append(endVarlst[0])
     sList.append(';')
-
+    for z in sList: print(z)
     for w in range(len(sList)):
         if isComparisonOperator(sList[w]):
             andFlg = False
+            likeFlg = False
             if sList[w + 1].isdigit():
                 if isEndofString(sList[w + 1]):
-                    print("made it")
                     break
                 continue
             else:
-                sList[w + 1] = '\"' + sList[w + 1]
-                counter = w
+                likeFlg = True
+                if not 'like' in sList[w]:
+                    sList[w + 1] = '\"' + sList[w + 1]
+                    likeFlg = False
 
+                counter = w
                 while not isEndofString(sList[counter]):
                     if sList[counter].find('and') != -1:    # 'and' could be part of title or sql operator
                         if isComparisonOperator(sList[counter + 2]):    # 'and' not part of title
@@ -92,21 +95,22 @@ def manageStringVars(s, sList):
                     counter += 1
 
                 if not andFlg:
-                    sList[counter - 1] = sList[counter - 1] + '\"'
+                    if not likeFlg:
+                        sList[counter - 1] = sList[counter - 1] + '\"'
 
     s = ' '.join(sList)
     s = s.rstrip(' ;')
     s = s + ';' # to remove space between last word and semicolon
+    print("final query" + s)
     return s
 
 
 def isComparisonOperator(w):
-    compOps = ['=', '<', '>', '>=', '>=']
-    for c in compOps:
-        if c in w:
-            return True
-
-    return False
+    compOps = ['=', '<', '>', '>=', '>=', 'like']
+    if w in compOps:
+        return True
+    else:
+        return False
 
 
 def isEndofString(w):
