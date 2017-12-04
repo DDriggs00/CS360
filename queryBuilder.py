@@ -69,20 +69,27 @@ def noTableName(s, tables, BadName):
 def manageStringVars(s, sList):
     for w in range(len(sList)):
         if isComparisonOperator(sList[w]):
+            andFlg = False
             if sList[w + 1].isdigit():
                 continue
             else:
                 sList[w + 1] = '\"' + sList[w + 1]
-                counter = w + 1
+                counter = w
 
-                while not isEndofString(sList[counter]):    # index out of range error
+                while not isEndofString(sList[counter]):
                     if sList[counter].find('and') != -1:    # 'and' could be part of title or sql operator
                         if isComparisonOperator(sList[counter + 2]):    # 'and' not part of title
                             sList[counter - 1] = sList[counter - 1] + '\"'  # end of string
+                            andFlg = True
                             break  # done with loop
                     counter += 1
 
+                if andFlg == False:
+                    sList[counter - 1] = sList[counter - 1] + '\"'
+
     s = ' '.join(sList)
+    s = s.rstrip(' ;')
+    s = s + ';' # to remove space between last word and
     return s
 
 
