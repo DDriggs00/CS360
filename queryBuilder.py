@@ -29,7 +29,7 @@ def buildQuery(s):
     tokens = s.split(' ')
     # tokens = nltk.word_tokenize(s)
     # tagged = nltk.pos_tag(tokens)
-
+    print(s)
     s = manageStringVars(s, tokens)
     # above func takes in string and list, looks for operator and if the following
     # string is not a digit, then the function will add quotes to it
@@ -104,7 +104,7 @@ def manageStringVars(s, sList):
 
 
 def isComparisonOperator(w):
-    compOps = ['=', '<', '>', '>=', '>=', 'like']
+    compOps = ['=', '<', '>', '>=', '>=', '<>', 'like']
     if w in compOps:
         return True
     else:

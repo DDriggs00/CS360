@@ -5,6 +5,7 @@ Y What games have M in the title?
 Y How many games were released in 2000?
 Y What studio made Sonic?
 Y What system was sonic on?
+Y What games were made by Larian Studios in 2017?
 Y list every game
 Y Give me a list of all the games in the database that were made by Nintendo before 2000
 Y what games did Sega make?
@@ -13,13 +14,13 @@ Z What year did Sonic come out in?
 Z Who made sonic?
 Z Who made the DS?
 Z When was Sonic released?
+W How much did Divinity Original Sin 2 Cost? (No Dollar Sign)
 Show me when both Mario and Sonic first came out.
-How many non Nintendo games were released between 2001 and 2002?
-What games were made by Larian Studios in 2000?
-How much did Divinity Original Sin 2 Cost?
 Did Sega make any games in 2000?
+X How many non Nintendo games were released between 2001 and 2002?
 X How many Nintendo games were released between 2001 and 2002?
 
 X = Not working, weird added stuff to different clauses
 Y = Completely Working
 Z = Program asks for table (low priority, but should shoot to make all work)
+W = Working, but some tweaks would be helpful (listed per query).

@@ -2,7 +2,7 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ', 'were ', 'are ', 'in the database ', 'in database ', 'from the database ', 'from database ']
+    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ', 'were ', 'are ', 'in the database ', 'in database ', 'from the database ', 'from database ', ' cost']
     Word = ''   # Words to be Removed
     String = Replace(String, Words, Word)
 
@@ -30,8 +30,8 @@ def DoReplacing(String):
     Word = r'select count(*) from'  # Words that mean Select
     String = Replace(String, Words, Word)
 
-    Words = ['How Much did', 'how much was ', 'how much ']
-    Word = 'select Price from '  # Words that mean Select
+    Words = ['How Much did ', 'how much was ', 'how much ']
+    Word = 'select Price where game = '  # Words that mean Select
     String = Replace(String, Words, Word)
 
     Words = ['that are in ', 'contained in ', 'from ']
@@ -83,6 +83,14 @@ def DoReplacing(String):
         String = Replace(String, Words, Word)
 
     Words = []
+    # Replace that * made
+    if len(re.findall(r"\D(\d{4})\D", ' ' + String + ' ')) != 0 and String.find('in') != -1:
+        middle = re.findall(r"\D(\d{4})\D", ' ' + String + ' ')[0]
+        Words = ['in ' + middle]
+        Word = 'where Year = ' + middle.strip()
+        String = Replace(String, Words, Word)
+
+    Words = []
     # Replace from * games
     if String.find('from') != -1 and String.find('games') != -1:
         middle = re.findall(r'from(.*?)games', String)[0]
@@ -126,6 +134,10 @@ def DoReplacing(String):
         Words.append('did' + middle + 'make')
         Word = 'where publisher = ' + middle.strip()
         String = Replace(String, Words, Word)
+
+    Words = [' = not ', ' = non ', ' = non-']
+    Word = ' <> '
+    String = Replace(String, Words, Word)
 
     Words = []
     # Replace with * in title

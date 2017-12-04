@@ -47,7 +47,7 @@ while not GoodDB:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = 'How much did Divinity Original Sin 2 Cost?'
+s = 'How many non Nintendo games were released between 2001 and 2002?'
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 

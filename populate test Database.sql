@@ -24,9 +24,9 @@ VALUES('Sonic', 'Sega Genesis', 'SEGA', 1991, 20),
 # Populate Systems table
 #########################
 INSERT INTO Systems(System, Type, Creator, YearMade)
-VALUES('NES', 'Console', 'Nintendo', 1985),
-			('Sega Genesis', 'Console', 'SEGA', 1991),
-			('3DS', 'Handheld', 'Nintendo', 2011),
-			('DS', 'Handheld', 'Nintendo', 2004),
-			('GBA', 'Handheld', 'Nintendo', 2001),
-      ('PC', 'Console', 'Microsoft', 1985);
+VALUES('NES', 'Console', 'Nintendo', 1985, 50),
+			('Sega Genesis', 'Console', 'SEGA', 1991, 30),
+			('3DS', 'Handheld', 'Nintendo', 2011, 200),
+			('DS', 'Handheld', 'Nintendo', 2004, 100),
+			('GBA', 'Handheld', 'Nintendo', 2001, 70),
+      ('PC', 'Console', 'Microsoft', 1985, 600);
