@@ -1,10 +1,16 @@
-X list every game
+Y list every game
 X Give me a list of all the games in the database that were made by Nintendo before 2000
 X what games did Sega make?
 X list all the games that Nintendo made
-X What year did Sonic come out in? (or "When was Sonic released?")
+X What year did Sonic come out in?
+X When was Sonic released?
 X How many games did Nintendo make with Mario in the title?
 X How many games were released in 2002?
-How many games were released between 2001 and 2002?
-How many non Nintendo games were released between 2001 and 2002?
+Y How many games were released between 2001 and 2002?
 Show me when both Mario and Sonic first came out.
+How many Nintendo games were released between 2001 and 2002?
+How many non Nintendo games were released between 2001 and 2002?
+
+
+X = Working except for quoting
+Y = Completely Working

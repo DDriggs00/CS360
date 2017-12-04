@@ -84,12 +84,12 @@ def manageStringVars(s, sList):
                             break  # done with loop
                     counter += 1
 
-                if andFlg == False:
+                if not andFlg:
                     sList[counter - 1] = sList[counter - 1] + '\"'
 
     s = ' '.join(sList)
     s = s.rstrip(' ;')
-    s = s + ';' # to remove space between last word and
+    s = s + ';'     # to remove space between last word and
     return s
 
 

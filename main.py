@@ -7,7 +7,7 @@ from mysql.connector import errorcode  # for handling bad connections, etc.
 
 # Connect to Server
 GoodCon = False
-while GoodCon is False:
+while not GoodCon:
     # IP = input("Select Server IP or \"Exit\" to quit: ")
     # if IP.lower() == "exit":
     #     sys.exit("Have a nice Day :)")
@@ -47,11 +47,11 @@ while not GoodDB:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = "How many games were released in 2002?"
+s = 'list every game'
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
-s = queryBuilder.buildQuery(s)  # should be of form select..from..whereaa
+s = queryBuilder.buildQuery(s)  # should be of form select..from..where
 
 try:
     cursor.execute(s)

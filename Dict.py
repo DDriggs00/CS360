@@ -50,6 +50,10 @@ def DoReplacing(String):
     Word = 'release'
     String = Replace(String, Words, Word)
 
+    Words = ['release between', 'came out between', 'published between']
+    Word = 'where year between'
+    String = Replace(String, Words, Word)
+
     Words = []
     # Replace that * made
     if String.find('that') != -1 and String.find('made') != -1:
