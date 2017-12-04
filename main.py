@@ -47,7 +47,7 @@ while not GoodDB:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = 'list every game'
+s = 'How many games did Nintendo make with Mario in the title?'
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 

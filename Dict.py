@@ -91,9 +91,9 @@ def DoReplacing(String):
 
     Words = []
     # Replace with * in title
-    if String.find('with') != -1 and String.find('from title') != -1:
-        middle = re.findall(r'with(.*?)from title', String)[0]
-        Words = ['with' + middle + 'from title']
+    if String.find('with') != -1 and String.find('in title') != -1:
+        middle = re.findall(r'with(.*?)in title', String)[0]
+        Words = ['with' + middle + 'in title']
         if String.find('game') != -1:
             Word = 'where game like ' + middle.strip()
         else:
