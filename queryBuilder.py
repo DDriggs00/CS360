@@ -9,7 +9,6 @@ def buildQuery(s):
     s = Dict.DoReplacing(s)
     s = s.strip()   # Remove Leading and Trailing Whitespace
     s = ReplaceNotFirst(s, 'where', 'and')
-
     tokens = nltk.word_tokenize(s)
 
     # Remove generic database references
@@ -65,12 +64,20 @@ def noTableName(s, tables, BadName):
     s = s.replace(BadName, tableName, 1)
     return(s)
 
-
 def manageStringVars(s, sList):
+    # problem was that the semicolon wasn't its own string in the list. now it is and works
+    endVarstr = sList.pop()
+    endVarlst = endVarstr.split(';')
+    sList.append(endVarlst[0])
+    sList.append(';')
+
     for w in range(len(sList)):
         if isComparisonOperator(sList[w]):
             andFlg = False
             if sList[w + 1].isdigit():
+                if isEndofString(sList[w + 1]):
+                    print("made it")
+                    break
                 continue
             else:
                 sList[w + 1] = '\"' + sList[w + 1]
@@ -89,16 +96,17 @@ def manageStringVars(s, sList):
 
     s = ' '.join(sList)
     s = s.rstrip(' ;')
-    s = s + ';'     # to remove space between last word and
+    s = s + ';' # to remove space between last word and semicolon
     return s
 
 
 def isComparisonOperator(w):
     compOps = ['=', '<', '>', '>=', '>=']
-    if w in compOps:
-        return True
-    else:
-        return False
+    for c in compOps:
+        if c in w:
+            return True
+
+    return False
 
 
 def isEndofString(w):
