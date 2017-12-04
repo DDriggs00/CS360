@@ -2,7 +2,7 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ', 'were ', 'are ']
+    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ', 'were ', 'are ', 'in the database ', 'in database ']
     Word = ''   # Words to be Removed
     String = Replace(String, Words, Word)
 

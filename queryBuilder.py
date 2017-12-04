@@ -35,7 +35,6 @@ def buildQuery(s):
     # tokens = nltk.word_tokenize(s)
     # tagged = nltk.pos_tag(tokens)
 
-    print(s)
     s = manageStringVars(s, tokens)
     # above func takes in string and list, looks for operator and if the following
     # string is not a digit, then the function will add quotes to it
@@ -64,13 +63,15 @@ def noTableName(s, tables, BadName):
     s = s.replace(BadName, tableName, 1)
     return(s)
 
+
 def manageStringVars(s, sList):
     # problem was that the semicolon wasn't its own string in the list. now it is and works
     endVarstr = sList.pop()
     endVarlst = endVarstr.split(';')
     sList.append(endVarlst[0])
     sList.append(';')
-    for z in sList: print(z)
+    # for z in sList:
+    #     print(z)
     for w in range(len(sList)):
         if isComparisonOperator(sList[w]):
             andFlg = False
@@ -81,7 +82,7 @@ def manageStringVars(s, sList):
                 continue
             else:
                 likeFlg = True
-                if not 'like' in sList[w]:
+                if 'like' not in sList[w]:
                     sList[w + 1] = '\"' + sList[w + 1]
                     likeFlg = False
 
@@ -100,7 +101,7 @@ def manageStringVars(s, sList):
 
     s = ' '.join(sList)
     s = s.rstrip(' ;')
-    s = s + ';' # to remove space between last word and semicolon
+    s = s + ';'     # to remove space between last word and semicolon
     print("final query" + s)
     return s
 
