@@ -47,7 +47,7 @@ while not GoodDB:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = "How many games did Nintendo make with Mario in the title?"
+s = "How many games were released in 2002?"
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 

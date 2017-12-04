@@ -2,7 +2,7 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ']
+    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ', 'were ', 'are ']
     Word = ''   # Words to be Removed
     String = Replace(String, Words, Word)
 
@@ -18,7 +18,7 @@ def DoReplacing(String):
     Word = r'select count(*) from'  # Words that mean Select
     String = Replace(String, Words, Word)
 
-    Words = ['that are in ', 'contained in ', 'in ', 'from ']
+    Words = ['that are in ', 'contained in ', 'from ']
     Word = 'from '   # Words that mean From
     String = Replace(String, Words, Word)
 
@@ -38,11 +38,15 @@ def DoReplacing(String):
     Word = 'where year < '
     String = Replace(String, Words, Word)
 
+    Words = ['released in ', 'released during ', 'released on']
+    Word = 'where year = '
+    String = Replace(String, Words, Word)
+
     Words = ['after ']
     Word = 'where year > '
     String = Replace(String, Words, Word)
 
-    Words = ['come out in', 'come out', 'get released', 'released', 'release', ]
+    Words = ['come out in', 'come out on', 'come out', 'get released', 'released', 'release']
     Word = 'release'
     String = Replace(String, Words, Word)
 
