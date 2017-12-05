@@ -11,6 +11,11 @@ def buildQuery(s):
     s = ReplaceNotFirst(s, 'where', 'and')
     tokens = nltk.word_tokenize(s)
 
+    # Remove generic database references
+    if s.lower().find("from database") != -1:
+        s = Dict.Replace(s, [" from database"], '')
+        tokens = nltk.word_tokenize(s)
+
     # if there is no "from"
     if s.find('from') == -1 and s.find('select') != -1:
         temp = tokens[tokens.index('select') + 1]
@@ -29,6 +34,7 @@ def buildQuery(s):
     tokens = s.split(' ')
     # tokens = nltk.word_tokenize(s)
     # tagged = nltk.pos_tag(tokens)
+
     print(s)
     s = manageStringVars(s, tokens)
     # above func takes in string and list, looks for operator and if the following
@@ -50,17 +56,13 @@ def noTableName(s, tables, BadName):
     tableName = "INVALID"
     while validTable is False:
         tableName = input("Table: ")
-        if tableName.lower() not in tables:
+        if tableName not in tables:
             print("Sorry, " + tableName + " is not a valid table name. Please enter a value from above.")
         else:
-            tableName = tableName.lower().capitalize()
             validTable = True
+    tableName = tableName.lower().capitalize()
     s = s.replace(BadName, tableName, 1)
-    if tableName == 'Systems':
-        s = s.replace('Publisher', 'Creator')
-        s = s.replace('game', 'system')
     return(s)
-
 
 def manageStringVars(s, sList):
     # problem was that the semicolon wasn't its own string in the list. now it is and works
@@ -68,8 +70,7 @@ def manageStringVars(s, sList):
     endVarlst = endVarstr.split(';')
     sList.append(endVarlst[0])
     sList.append(';')
-    # for z in sList:
-    #     print(z)
+    for z in sList: print(z)
     for w in range(len(sList)):
         if isComparisonOperator(sList[w]):
             andFlg = False
@@ -80,7 +81,7 @@ def manageStringVars(s, sList):
                 continue
             else:
                 likeFlg = True
-                if 'like' not in sList[w]:
+                if not 'like' in sList[w]:
                     sList[w + 1] = '\"' + sList[w + 1]
                     likeFlg = False
 
@@ -99,12 +100,13 @@ def manageStringVars(s, sList):
 
     s = ' '.join(sList)
     s = s.rstrip(' ;')
-    s = s + ';'     # to remove space between last word and semicolon
+    s = s + ';' # to remove space between last word and semicolon
+    print("final query" + s)
     return s
 
 
 def isComparisonOperator(w):
-    compOps = ['=', '<', '>', '>=', '>=', '<>', 'like']
+    compOps = ['=', '<', '>', '>=', '>=', 'like', 'between']
     if w in compOps:
         return True
     else:
