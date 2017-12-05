@@ -7,6 +7,8 @@ Y What studio made Sonic?
 Y How many games were released between 2001 and 2002?
 Y What system was sonic on?
 Y what games did Sega make?
+Y How many non Nintendo games were released between 2001 and 2002?
+Y How many Nintendo games were released between 2001 and 2002?
 Z What year did Sonic come out in?
 Z When was Sonic released?
 Z Show me when Sonic first came out.
@@ -15,8 +17,6 @@ Z Who made the DS?
 W How much did Divinity Original Sin 2 Cost? (No Dollar Sign)
 Show me when both Mario and Sonic first came out.
 Did Sega make any games in 2000?
-X How many non Nintendo games were released between 2001 and 2002?
-X How many Nintendo games were released between 2001 and 2002?
 
 X = Not working, weird added stuff to different clauses
 Y = Completely Working

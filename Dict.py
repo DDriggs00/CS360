@@ -12,11 +12,10 @@ def DoReplacing(String):
     Words = ['show me when ']
     Word = 'select year did '
     String = Replace(String, Words, Word)
-    
+
     Words = ['when ']
     Word = 'select year '
     String = Replace(String, Words, Word)
-
 
     Words = [' have ']
     Word = ' with '

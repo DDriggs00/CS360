@@ -59,7 +59,7 @@ while not GoodDB:
 
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
-s = 'Show me when Sonic first came out.'
+s = 'Show me when both Mario and Sonic first came out'
 if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
