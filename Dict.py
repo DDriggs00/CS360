@@ -2,13 +2,21 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%', 'a list of ', 'that were ', 'that are ', 'the ', 'were ', 'are ', 'in the database ', 'in database ', 'from the database ', 'from database ', ' cost']
+    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%',
+             'a list of ', 'that were ', 'that are ', 'the ', 'were ',
+             'are ', 'in the database ', 'in database ', 'from the database ',
+             'from database ', ' cost']
     Word = ''   # Words to be Removed
     String = Replace(String, Words, Word)
 
+    Words = ['show me when ']
+    Word = 'select year did '
+    String = Replace(String, Words, Word)
+    
     Words = ['when ']
     Word = 'select year '
     String = Replace(String, Words, Word)
+
 
     Words = [' have ']
     Word = ' with '
@@ -66,7 +74,7 @@ def DoReplacing(String):
     Word = 'where year > '
     String = Replace(String, Words, Word)
 
-    Words = ['come out in', 'come out on', 'come out', 'get released', 'released', 'release']
+    Words = ['come out in', 'come out on', 'come out', 'get released', 'released', 'release', 'first came out', 'came out', 'came out on']
     Word = 'release'
     String = Replace(String, Words, Word)
 
