@@ -3,11 +3,8 @@ Y list all the games that Nintendo made
 Y Give me a list of all the games in the database that were made by Nintendo before 2000
 Y What games were made by Larian Studios in 2017?
 Y How many games did Nintendo make with Mario in the title?
-Y What games have M in the title?
 Y What studio made Sonic?
-Y How many games were released in 2002?
 Y How many games were released between 2001 and 2002?
-Y How many games were released in 2000?
 Y What system was sonic on?
 Y what games did Sega make?
 Z What year did Sonic come out in?

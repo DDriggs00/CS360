@@ -5,6 +5,17 @@ import mysql.connector  # for querying db
 from mysql.connector import errorcode  # for handling bad connections, etc.
 
 
+class txt:
+    purple = '\033[95m'
+    blue = '\033[94m'
+    green = '\033[92m'
+    yellow = '\033[93m'
+    red = '\033[91m'
+    n = '\033[0m'       # Normal
+    b = '\033[1m'       # Bold
+    u = '\033[4m'       # Underline
+
+
 # Connect to Server
 GoodCon = False
 while not GoodCon:
@@ -52,11 +63,11 @@ if s.lower() == "exit":
     sys.exit("Have a nice Day :)")
 
 s = queryBuilder.buildQuery(s)  # should be of form select..from..where
-print('\nYour Query was compiled to: \n' + s + '\nIf This is not what you meant, try re-wording your query.\n')
+print('\nYour Query was compiled to: \n' + txt.b + s + txt.n + '\nIf This is not what you meant, try re-wording your query.\n')
 try:
     cursor.execute(s)
 except mysql.connector.Error:
-    print("Query Failed to Execute.")
+    print(txt.red + "Query Failed to Execute." + txt.n)
 else:
     print('Query Results:')
     output = cursor.fetchall()
