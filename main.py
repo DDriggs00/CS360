@@ -3,6 +3,7 @@ import queryBuilder     # Dynamically builds query (local file)
 import sys              # for sys.exit
 import mysql.connector  # for querying db
 from mysql.connector import errorcode  # for handling bad connections, etc.
+from getpass import getpass
 
 
 class txt:
@@ -19,14 +20,14 @@ class txt:
 # Connect to Server
 GoodCon = False
 while not GoodCon:
-    # IP = input("Select Server IP or \"Exit\" to quit: ")
-    # if IP.lower() == "exit":
-    #     sys.exit("Have a nice Day :)")
-    # User = input("Username: ")
-    # Pass = input("Password: ")
-    User = 'root'
-    Pass = 'Password1'
-    IP = 'localhost'
+    IP = input("Select Server IP or \"Exit\" to quit: ")
+    if IP.lower() == "exit":
+        sys.exit("Have a nice Day :)")
+    User = input("Username: ")
+    Pass = getpass("Password: ")
+    # User = 'root'
+    # Pass = 'Password1'
+    # IP = 'localhost'
     try:  # try statement to ensure connection is valid
         dbcon = mysql.connector.connect(user=User, password=Pass, host=IP)
     except mysql.connector.Error as err:
