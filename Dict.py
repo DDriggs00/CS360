@@ -57,12 +57,12 @@ def DoReplacing(String):
     Word = 'where Publisher = '
     String = Replace(String, Words, Word)
 
-    Words = ['made ', 'published ', 'designed ', 'where Game = ']
-    Word = 'where game = '
+    Words = ['made before ', 'before ', 'prior to ', 'where year < ']
+    Word = 'where year < '
     String = Replace(String, Words, Word)
 
-    Words = ['before ', 'prior to ']
-    Word = 'where year < '
+    Words = ['made ', 'published ', 'designed ', 'where Game = ']
+    Word = 'where game = '
     String = Replace(String, Words, Word)
 
     Words = ['released in ', 'released during ', 'released on']

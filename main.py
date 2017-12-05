@@ -1,6 +1,8 @@
 import queryBuilder     # Dynamically builds query (local file)
 
-import sys              # for sys.exit
+from sys import exit    # for sys.exit
+import os               # for clearing screen
+from time import sleep
 import mysql.connector  # for querying db
 from mysql.connector import errorcode   # for handling bad connections, etc.
 # from getpass import getpass             # For Getting password without echoing
@@ -22,7 +24,7 @@ GoodCon = False
 while not GoodCon:
     # IP = input("Select Server IP or \"Exit\" to quit: ")
     # if IP.lower() == "exit":
-    #     sys.exit("Have a nice Day :)")
+    #     exit(txt.green + "Have a nice Day :)" + txt.n)
     # User = input("Username: ")
     # Pass = getpass("Password: ")
     User = 'root'
@@ -43,25 +45,28 @@ while not GoodCon:
 # Select Database
 GoodDB = False
 while not GoodDB:
-    # print('\n')
+    # print(txt.b)
     # cursor.execute('show databases')
     # output = cursor.fetchall()
     # for row in output:
     #     print(row[0])
+    # print(txt.n)
     # DB = input("Select Database to use from the list above: ")
     DB = 'Gamedb'
     try:
         cursor.execute('use ' + DB)
     except mysql.connector.Error:
-        print(DB + " is an invalid database")
+        print(txt.red + DB + " is an invalid database" + txt.n)
     else:
         GoodDB = True
-
+print(txt.green + "Database Connected!" + txt.n)
+sleep(1)
+os.system('cls' if os.name == 'nt' else 'clear')
 # while True:
 # s = input("Please enter a Query or \"Exit\" to quit\n")
 s = 'Show me when both Mario and Sonic first came out'
 if s.lower() == "exit":
-    sys.exit("Have a nice Day :)")
+    exit(txt.green + "Have a nice Day :)" + txt.n)
 
 s = queryBuilder.buildQuery(s)  # should be of form select..from..where
 print('\nYour Query was compiled to: \n' + txt.b + s + txt.n + '\nIf This is not what you meant, try re-wording your query.\n')
