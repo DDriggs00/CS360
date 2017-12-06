@@ -2,7 +2,9 @@ import re
 
 
 def DoReplacing(String):
-    Words = ['\.', '\:', '\;', '\'', '\"', '\?', ',', '%',
+    print("TOREPLACE: " + String)
+    # REMOVED ',' from here since that is useful for sorting in() stmts
+    Words = ['\.', '\:', '\;', '\'', '\"', '\?', '%',
              'a list of ', 'that were ', 'that are ', 'the ', 'were ',
              'are ', 'in the database ', 'in database ', 'from the database ',
              'from database ', ' cost']
@@ -158,6 +160,18 @@ def DoReplacing(String):
         String = Replace(String, Words, Word)
         String = String.replace(middle.strip(), '\"%' + middle.strip() + '%\"')
 
+    Words = []
+    # Replace ...where * = both ...
+    if String.find('= both') != -1:
+        String = String.replace('= both', 'in (')
+
+    # Replace case = str1, str2, ... (aka, no 'both' to indicate 'in ( )' needed)
+        # check for only one '=' with multiple words after
+    if String.count('=') == 1 and (String.find(',') != 1 or String.find('and') != 1):
+        String = String.replace('=', "in (")
+
+
+    print("AFTER WEIRD REPLACES" + String)
     return String
 
 

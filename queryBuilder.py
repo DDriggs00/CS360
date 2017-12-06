@@ -7,6 +7,8 @@ import nltk             # For Parsing
 
 def buildQuery(s):
     s = Dict.DoReplacing(s)
+    #s = 'Show me when both Mario and Sonic first came out'
+    print("TOREPLACE: " + s)
     s = s.strip()   # Remove Leading and Trailing Whitespace
     s = ReplaceNotFirst(s, 'where', 'and')
     tokens = nltk.word_tokenize(s)
@@ -71,9 +73,40 @@ def manageStringVars(s, sList):
     endVarlst = endVarstr.split(';')
     sList.append(endVarlst[0])
     sList.append(';')
-    # for z in sList:
-    #     print(z)
+    for z in sList:
+        print(z)
+    inFlg = False
     for w in range(len(sList)):
+        if sList[w] == 'in' and sList[w + 1] == '(':
+            inFlg = True
+            #if not sList[w + 2].isdigit():
+                #sList[w + 2] = '\"' + sList[w + 2]
+            icounter = w + 2
+            numComma = sList[w].count(',')
+            while icounter < len(sList):
+                if sList[icounter].find(',') != -1:
+                    sList[icounter] = sList[icounter].rstrip(',')
+                    if sList[icounter + 1] == 'and':
+                        sList[icounter + 1] = '\"'
+                        sList[icounter] = '\"' + sList[icounter] + '\"' + ','
+                        icounter += 2
+                    else:
+                        if not sList[icounter].isdigit():
+                            sList[icounter] = '\"' + sList[icounter] + '\"' + ','
+                if numComma == 0 and sList[icounter] == 'and':
+                    if not sList[icounter - 1].isdigit():
+                        sList[icounter - 1] = '\"' + sList[icounter - 1] + '\"'
+                        sList[icounter] = ','
+                    if not sList[icounter + 1].isdigit():
+                        sList[icounter + 1] = '\"' + sList[icounter + 1]
+                if sList[icounter] == ';':
+                    if not sList[icounter - 1].isdigit():
+                        sList[icounter - 1] = sList[icounter - 1] + '\"'
+                    sList[icounter] = ') ;'
+                    inFlg = False
+
+                icounter += 1
+
         if isComparisonOperator(sList[w]):
             andFlg = False
             likeFlg = False
@@ -103,6 +136,12 @@ def manageStringVars(s, sList):
     s = ' '.join(sList)
     s = s.rstrip(' ;')
     s = s + ';' # to remove space between last word and semicolon
+    s = s.replace('( ', '(')
+    s = s.replace(' )', ')')
+    s = s.replace(' \"', "\"")
+    s = s.replace('\" ', '\"')
+    s = s.replace(' , ', ', ')
+    s = s.replace(',', ', ')
     print("final query" + s)
     return s
 
