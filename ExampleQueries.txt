@@ -15,7 +15,8 @@ Z Show me when Sonic first came out.
 Z Who made sonic?
 Z Who made the DS?
 W How much did Divinity Original Sin 2 Cost? (No Dollar Sign)
-Show me when both Mario and Sonic first came out.
+Z Show me when both Mario and Sonic first came out.
+Z Show me when Mario, Sonic, and Divinity came out
 Did Sega make any games in 2000?
 
 X = Not working, weird added stuff to different clauses
