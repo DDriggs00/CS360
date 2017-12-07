@@ -5,7 +5,7 @@ import os               # for clearing screen
 from time import sleep  # for waiting 1 sec before clearing screen
 import mysql.connector  # for querying db
 from mysql.connector import errorcode   # for handling bad connections, etc.
-# from getpass import getpass             # For Getting password without echoing
+from getpass import getpass             # For Getting password without echoing
 
 
 class txt:
@@ -22,14 +22,14 @@ class txt:
 # Connect to Server
 GoodCon = False
 while not GoodCon:
-    # IP = input("Select Server IP or \"Exit\" to quit: ")
-    # if IP.lower() == "exit":
-    #     exit(txt.green + "Have a nice Day :)" + txt.n)
-    # User = input("Username: ")
-    # Pass = getpass("Password: ")
-    User = 'root'
-    Pass = 'Password1'
-    IP = 'localhost'
+    IP = input("Select Server IP or \"Exit\" to quit: ")
+    if IP.lower() == "exit":
+        exit(txt.green + "Have a nice Day :)" + txt.n)
+    User = input("Username: ")
+    Pass = getpass("Password: ")
+    # User = 'root'
+    # Pass = 'Password1'
+    # IP = 'localhost'
     try:  # try statement to ensure connection is valid
         dbcon = mysql.connector.connect(user=User, password=Pass, host=IP)
     except mysql.connector.Error as err:
@@ -45,14 +45,14 @@ while not GoodCon:
 # Select Database
 GoodDB = False
 while not GoodDB:
-    # print(txt.b)
-    # cursor.execute('show databases')
-    # output = cursor.fetchall()
-    # for row in output:
-    #     print(row[0])
-    # print(txt.n)
-    # DB = input("Select Database to use from the list above: ")
-    DB = 'Gamedb'
+    print(txt.b)
+    cursor.execute('show databases')
+    output = cursor.fetchall()
+    for row in output:
+        print(row[0])
+    print(txt.n)
+    DB = input("Select Database to use from the list above: ")
+    # DB = 'Gamedb'
     try:
         cursor.execute('use ' + DB)
     except mysql.connector.Error:

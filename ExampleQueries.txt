@@ -1,26 +1,25 @@
-Y list every game
-Y list all the games that Nintendo made
-Y Give me a list of all the games in the database that were made by Nintendo before 2000
-Y Give me a list of all the games in the database that were made by Nintendo before 2000 and have mario in the title
-Y What games were made by Larian Studios in 2017?
-Y How many games did Nintendo make with Mario in the title?
-Y What studio made Sonic?
-Y How many games were released between 2001 and 2002?
-Y What system was sonic on?
-Y what games did Sega make?
-Y How many non Nintendo games were released between 2001 and 2002?
-Y How many Nintendo games were released between 2001 and 2002?
-Z What year did Sonic come out in?
-Z When was Sonic released?
-Z Show me when Sonic first came out.
-Z Who made sonic?
-Z Who made the DS?
-Z How much did Divinity Original Sin 2 Cost?
-Z Show me when both Super Mario and Sonic first came out.
-Z Show me when Super Mario, Sonic, and Divinity Original Sin 2 came out
-Did Sega make any games in 2000?
+list every game
+list all the games that Nintendo made
+Give me a list of all the games in the database that were made by Nintendo before 2000
+Give me a list of all the games in the database that were made by Nintendo before 2000 and have mario in the title
+What games were made by Larian Studios in 2017?
+How many games did Nintendo make with Mario in the title?
+What studio made Sonic?
+How many games were released between 2001 and 2002?
+What system was sonic on?
+what games did Sega make?
+How many non Nintendo games were released between 2001 and 2002?
+How many Nintendo games were released between 2001 and 2002?
+What year did Sonic come out in?
+When was Sonic released?
+Show me when Sonic first came out.
+Who made sonic?
+Who made the DS?
+How much did Divinity Original Sin 2 Cost?
+Show me when both Sonic and Super Mario first came out.
 
-X = Not working, weird added stuff to different clauses
-Y = Completely Working
-Z = Program asks for table (low priority, but should shoot to make all work)
-W = Working, but some tweaks would be helpful (listed per query).
+Everything above this point verified working as of current release.
+Everything Below this point verified NOT working as of current release.
+
+Show me when both Super Mario and Sonic first came out.
+Show me when Super Mario, Sonic, and Divinity Original Sin 2 came out
