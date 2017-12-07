@@ -7,10 +7,10 @@ import nltk             # For Parsing
 
 def buildQuery(s):
     s = Dict.DoReplacing(s)
-    #s = 'Show me when both Mario and Sonic first came out'
-    print("TOREPLACE: " + s)
+    # s = 'Show me when both Mario and Sonic first came out'
     s = s.strip()   # Remove Leading and Trailing Whitespace
     s = ReplaceNotFirst(s, 'where', 'and')
+    s = s.replace('and and', 'and')
     tokens = nltk.word_tokenize(s)
 
     # Remove generic database references
@@ -37,7 +37,6 @@ def buildQuery(s):
     # tokens = nltk.word_tokenize(s)
     # tagged = nltk.pos_tag(tokens)
 
-    print(s)
     s = manageStringVars(s, tokens)
     # above func takes in string and list, looks for operator and if the following
     # string is not a digit, then the function will add quotes to it
@@ -59,11 +58,14 @@ def noTableName(s, tables, BadName):
     while validTable is False:
         tableName = input("Table: ")
         if tableName not in tables:
-            print("Sorry, " + tableName + " is not a valid table name. Please enter a value from above.")
+            print("\033[91mSorry, " + tableName + " is not a valid table name. Please enter a value from above.\033[0m")
         else:
             validTable = True
     tableName = tableName.lower().capitalize()
     s = s.replace(BadName, tableName, 1)
+    if tableName == "Systems":
+        s = Dict.Replace(s, ["game"], "system")
+        s = Dict.Replace(s, ["Publisher"], "Creator")
     return(s)
 
 
@@ -73,14 +75,10 @@ def manageStringVars(s, sList):
     endVarlst = endVarstr.split(';')
     sList.append(endVarlst[0])
     sList.append(';')
-    for z in sList:
-        print(z)
-    inFlg = False
     for w in range(len(sList)):
         if sList[w] == 'in' and sList[w + 1] == '(':
-            inFlg = True
-            #if not sList[w + 2].isdigit():
-                #sList[w + 2] = '\"' + sList[w + 2]
+            # if not sList[w + 2].isdigit():
+            #     sList[w + 2] = '\"' + sList[w + 2]
             icounter = w + 2
             numComma = sList[w].count(',')
             while icounter < len(sList):
@@ -103,7 +101,6 @@ def manageStringVars(s, sList):
                     if not sList[icounter - 1].isdigit():
                         sList[icounter - 1] = sList[icounter - 1] + '\"'
                     sList[icounter] = ') ;'
-                    inFlg = False
 
                 icounter += 1
 
@@ -135,19 +132,18 @@ def manageStringVars(s, sList):
 
     s = ' '.join(sList)
     s = s.rstrip(' ;')
-    s = s + ';' # to remove space between last word and semicolon
+    s = s + ';'     # to remove space between last word and semicolon
     s = s.replace('( ', '(')
     s = s.replace(' )', ')')
     s = s.replace(' \"', "\"")
     s = s.replace('\" ', '\"')
     s = s.replace(' , ', ', ')
     s = s.replace(',', ', ')
-    print("final query" + s)
     return s
 
 
 def isComparisonOperator(w):
-    compOps = ['=', '<', '>', '>=', '>=', 'like', 'between']
+    compOps = ['=', '<>', '<', '>', '>=', '>=', 'like', 'between']
     if w in compOps:
         return True
     else:

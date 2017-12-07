@@ -1,6 +1,7 @@
 Y list every game
 Y list all the games that Nintendo made
 Y Give me a list of all the games in the database that were made by Nintendo before 2000
+Y Give me a list of all the games in the database that were made by Nintendo before 2000 and have mario in the title
 Y What games were made by Larian Studios in 2017?
 Y How many games did Nintendo make with Mario in the title?
 Y What studio made Sonic?
@@ -14,9 +15,9 @@ Z When was Sonic released?
 Z Show me when Sonic first came out.
 Z Who made sonic?
 Z Who made the DS?
-W How much did Divinity Original Sin 2 Cost? (No Dollar Sign)
-Z Show me when both Mario and Sonic first came out.
-Z Show me when Mario, Sonic, and Divinity came out
+Z How much did Divinity Original Sin 2 Cost?
+Z Show me when both Super Mario and Sonic first came out.
+Z Show me when Super Mario, Sonic, and Divinity Original Sin 2 came out
 Did Sega make any games in 2000?
 
 X = Not working, weird added stuff to different clauses

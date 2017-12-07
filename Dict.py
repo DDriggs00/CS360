@@ -2,7 +2,6 @@ import re
 
 
 def DoReplacing(String):
-    print("TOREPLACE: " + String)
     # REMOVED ',' from here since that is useful for sorting in() stmts
     Words = ['\.', '\:', '\;', '\'', '\"', '\?', '%',
              'a list of ', 'that were ', 'that are ', 'the ', 'were ',
@@ -103,7 +102,7 @@ def DoReplacing(String):
     # Replace from * games
     if String.find('from') != -1 and String.find('games') != -1:
         middle = re.findall(r'from(.*?)games', String)[0]
-        if re.search('[a-zA-Z]', String):
+        if re.search('[a-zA-Z]', middle):
             Words = ['from' + middle + 'games']
             Word = 'from games where publisher = ' + middle.strip()
             String = Replace(String, Words, Word)
@@ -120,7 +119,6 @@ def DoReplacing(String):
     # Replace was * on
     if String.find('was') != -1 and String.find(' on') != -1:
         middle = re.findall(r'was(.*?) on', String)[0]
-        print(middle)
         Words = ['was' + middle + ' on']
         Word = 'where game = ' + middle.strip()
         String = Replace(String, Words, Word)
@@ -161,17 +159,27 @@ def DoReplacing(String):
         String = String.replace(middle.strip(), '\"%' + middle.strip() + '%\"')
 
     Words = []
+    # Replace with * in title
+    if String.find('with') != -1 and String.find('in name') != -1:
+        middle = re.findall(r'with(.*?)in name', String)[0]
+        Words = ['with' + middle + 'in name']
+        if String.find('game') != -1:
+            Word = 'where game like ' + middle.strip()
+        else:
+            Word = 'where System like ' + middle.strip()
+        String = Replace(String, Words, Word)
+        String = String.replace(middle.strip(), '\"%' + middle.strip() + '%\"')
+
+    Words = []
     # Replace ...where * = both ...
-    if String.find('= both') != -1:
-        String = String.replace('= both', 'in (')
+    if String.find('= both ') != -1:
+        String = String.replace('= both ', 'in ( ')
 
     # Replace case = str1, str2, ... (aka, no 'both' to indicate 'in ( )' needed)
-        # check for only one '=' with multiple words after
-    if String.count('=') == 1 and (String.find(',') != 1 or String.find('and') != 1):
-        String = String.replace('=', "in (")
+    #     check for only one '=' with multiple words after
+    # if String.count('=') == 1 and (String.find(',') != 1 or String.find('and') != 1):
+    #     String = String.replace('=', "in (")
 
-
-    print("AFTER WEIRD REPLACES" + String)
     return String
 
 

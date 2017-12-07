@@ -2,7 +2,7 @@ import queryBuilder     # Dynamically builds query (local file)
 
 from sys import exit    # for sys.exit
 import os               # for clearing screen
-from time import sleep
+from time import sleep  # for waiting 1 sec before clearing screen
 import mysql.connector  # for querying db
 from mysql.connector import errorcode   # for handling bad connections, etc.
 # from getpass import getpass             # For Getting password without echoing
@@ -35,9 +35,9 @@ while not GoodCon:
     except mysql.connector.Error as err:
         GoodCon = False  # since connecting threw error
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print("Invalid credentials\n")
+            print(txt.red + "Invalid credentials\n" + txt.n)
         else:
-            print("Error with connecting to db: ", err, '\n')
+            print(txt.red + "Error with connecting to db: ", err, '\n' + txt.n)
     else:
         GoodCon = True  # no errors caught, db is good
         cursor = dbcon.cursor()  # used to query db
@@ -59,26 +59,38 @@ while not GoodDB:
         print(txt.red + DB + " is an invalid database" + txt.n)
     else:
         GoodDB = True
+
 print(txt.green + "Database Connected!" + txt.n)
 sleep(1)
 os.system('cls' if os.name == 'nt' else 'clear')
-# while True:
-# s = input("Please enter a Query or \"Exit\" to quit\n")
-s = 'Show me when both Mario and Sonic first came out'
-if s.lower() == "exit":
-    exit(txt.green + "Have a nice Day :)" + txt.n)
 
-s = queryBuilder.buildQuery(s)  # should be of form select..from..where
-print('\nYour Query was compiled to: \n' + txt.b + s + txt.n + '\nIf This is not what you meant, try re-wording your query.\n')
-try:
-    cursor.execute(s)
-except mysql.connector.Error:
-    print(txt.red + "Query Failed to Execute." + txt.n)
-else:
-    print('Query Results:')
-    output = cursor.fetchall()
-    for row in output:
-        print(row[0])
+while True:
+    s = input("Please enter a Query or \"Exit\" to quit\n")
+    # s = 'Did Sega make any games in 2000?'
+    if s.lower() == "exit":
+        exit(txt.green + "Have a nice Day :)" + txt.n)
+
+    s = queryBuilder.buildQuery(s)  # should be of form select..from..where
+    print('\nYour Query was compiled to: \n' + txt.b + s + txt.n + '\nIf This is not what you meant, try re-wording your query.\n')
+    try:
+        cursor.execute(s)
+    except mysql.connector.Error:
+        print(txt.red + "Query Failed to Execute." + txt.n)
+    else:
+        if s.find("Price") != -1:
+            Price = True
+        else:
+            Price = False
+        print('Query Results:' + txt.b)
+        output = cursor.fetchall()
+        if output:
+            for row in output:
+                if Price is True:
+                    print('$', end='')
+                print(row[0])
+        else:
+            print("No Results")
+        print(txt.n)
 
 cursor.close()  # close cursor, bad form to keep open
 dbcon.close()   # close connection, bad form to keep open
