@@ -17,3 +17,9 @@ Who made sonic?
 Who made the DS?
 How much did Divinity Original Sin 2 Cost?
 Show me when both Sonic and Super Mario first came out.
+
+TO Do:
+Change wording of table selection (remove if possible)
+join
+Use NLP
+Guessing
