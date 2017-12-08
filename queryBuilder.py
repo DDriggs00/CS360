@@ -51,12 +51,12 @@ def ReplaceNotFirst(s, old, new):
 
 
 def noTableName(s, tables, BadName):
-    print("Which of the following tables is that most related to?")
+    print("Which of the following subjects is that most related to?")
     print(tables)
     validTable = False
     tableName = "INVALID"
     while validTable is False:
-        tableName = input("Table: ")
+        tableName = input("Subject: ")
         if tableName not in tables:
             print("\033[91mSorry, " + tableName + " is not a valid table name. Please enter a value from above.\033[0m")
         else:
