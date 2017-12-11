@@ -58,7 +58,7 @@ def noTableName(s, tables, BadName):
     while validTable is False:
         tableName = input("Subject: ")
         if tableName not in tables:
-            print("\033[91mSorry, " + tableName + " is not a valid table name. Please enter a value from above.\033[0m")
+            print("\033[91mSorry, " + tableName + " is not in the list above. Please enter a subject from above.\033[0m")
         else:
             validTable = True
     tableName = tableName.lower().capitalize()
