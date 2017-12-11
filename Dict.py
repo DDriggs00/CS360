@@ -62,7 +62,7 @@ def DoReplacing(String):
     Word = 'where year < '
     String = Replace(String, Words, Word)
 
-    Words = ['made ', 'published ', 'designed ', 'where Game = ']
+    Words = ['made ', 'published ', 'designed ', 'invented ', 'where Game = ']
     Word = 'where game = '
     String = Replace(String, Words, Word)
 
