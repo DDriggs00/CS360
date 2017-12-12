@@ -3,7 +3,7 @@ import re
 
 def DoReplacing(String):
     # REMOVED ',' from here since that is useful for sorting in() stmts
-    Words = ['\.', '\:', '\;', '\'', '\"', '\?', '%',
+    Words = ['\:', '\;', '\'', '\"', '\?', '%',
              'a list of ', 'that were ', 'that are ', 'the ', 'were ',
              'are ', 'in the database ', 'in database ', 'from the database ',
              'from database ', ' cost']
@@ -60,6 +60,10 @@ def DoReplacing(String):
 
     Words = ['made before ', 'before ', 'prior to ', 'where year < ']
     Word = 'where year < '
+    String = Replace(String, Words, Word)
+
+    Words = ['made for ', 'designed for', 'where system = ']
+    Word = 'where system = '
     String = Replace(String, Words, Word)
 
     Words = ['made ', 'published ', 'designed ', 'invented ', 'where Game = ']
