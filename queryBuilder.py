@@ -1,11 +1,25 @@
 import Dict             # Custom Replacements (local file)
 from tenses import pluralize, singularize
+from join import join
 
 import nltk             # For Parsing
 # import re
 
 
 def buildQuery(s):
+    tokens = nltk.word_tokenize(s)
+    Tagged = nltk.pos_tag(tokens)
+
+    subjects = 0
+    # joined = False
+    for item in Tagged:
+        if item[1] == 'NNS':
+            subjects += 1
+    print(subjects)
+    if subjects >= 2:
+        # joined = True
+        s = join(s)
+
     s = Dict.DoReplacing(s)
     # s = 'Show me when both Mario and Sonic first came out'
     s = s.strip()   # Remove Leading and Trailing Whitespace
@@ -107,7 +121,7 @@ def manageStringVars(s, sList):
         if isComparisonOperator(sList[w]):
             andFlg = False
             likeFlg = False
-            if sList[w + 1].isdigit():
+            if sList[w + 1].isdigit() or sList[w + 1].find('.') != -1:
                 if isEndofString(sList[w + 1]):
                     break
                 continue

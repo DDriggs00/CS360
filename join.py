@@ -4,17 +4,13 @@ import Dict
 
 
 def append(tagged, Query, POS):
-    temp = False
     i = 0
     for row in tagged:
-        if temp:
-            if tagged[i][1] != POS:
-                break
         if tagged[i][1] == POS:
             Query += tagged[i][0]
             Query += ' '
             tagged[i] = ((tagged[i][0]), ('X' + tagged[i][1]))
-            temp = True
+            break
         i += 1
     return Query
 
@@ -41,26 +37,59 @@ def append2(tagged, Query, POS, POS2):
     return Query
 
 
-# select A.B from games as x, systems as y where x.system = y.system
-# Start: What games were made for systems made by Nintendo
-# Start: What games were made for Nintendo Systems
-# Goal: select games.game from games, systems where
-s = "What games were made for systems made by Nintendo"
-Query = "select "
+def join(s):
+    # select A.B from games as x, systems as y where x.system = y.system
+    # Start: What games were made for systems made by Nintendo
+    # Start: What games were made for Nintendo Systems
+    # Goal: select games.game from games, systems where
+    s = "What games were made for systems made by Nintendo"
+    # s = "Give me a list of all the games in the database that were made by Nintendo before 2000 and have mario in the title"
+    Query = "select "
 
-tokens = nltk.word_tokenize(s)
-tagged = nltk.pos_tag(tokens)
-print(tagged)
+    tokens = nltk.word_tokenize(s)
+    tagged = nltk.pos_tag(tokens)
+    print(tagged)
 
-Query = append(tagged, Query, 'NNS')
+    Query = append(tagged, Query, 'NNS')
+    Query = Query.replace('games', 'games.game')
+    Query = Query.replace('systems', 'systems.system')
+    print(Query)
+    print(tagged)
 
-print(Query)
-print(tagged)
+    Query += 'from games, systems '     # Change later
+    Query += 'where games.system = systems.system '     # Change later
 
-Query += 'from games, systems '     # Change later
-Query += 'where games.system = systems.system '     # Change later
+    print(Query)
+    print(tagged)
 
-Query = append2(tagged, Query, 'VBN', 'IN')
-Query = Dict.DoReplacing(Query)
-print(Query)
-print(tagged)
+    i = 0
+    flag = False
+    for row in tagged:
+        if tagged[i][1] == 'NNS':
+            flag = True
+        if flag:
+            tagged[i] = ((tagged[i][0]), ('Z' + tagged[i][1]))
+        i += 1
+
+    i = 0
+    flag = False
+    for row in tagged:
+        if tagged[i][1][0] == 'Z':
+            flag = True
+        if flag:
+            if tagged[i][1] == 'ZNNS':
+                Query += tagged[i][0]
+                Query += '.'
+            else:
+                Query += tagged[i][0]
+                Query += ' '
+
+        i += 1
+    Query = Dict.DoReplacing(Query)
+
+    Query = Query.replace('systems.where ', 'where systems.')
+    Query = Query.replace('games.where ', 'where games.')
+
+    print(Query)
+    print(tagged)
+    return Query

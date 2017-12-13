@@ -184,6 +184,8 @@ def DoReplacing(String):
     # if String.count('=') == 1 and (String.find(',') != 1 or String.find('and') != 1):
     #     String = String.replace('=', "in (")
 
+    String = String.replace('systems.Publisher ', 'systems.Creator ')
+
     return String
 
 
