@@ -6,7 +6,7 @@ import nltk             # For Parsing
 # import re
 
 
-def buildQuery(s):
+def buildQuery(s, tables):
     tokens = nltk.word_tokenize(s)
     Tagged = nltk.pos_tag(tokens)
 
@@ -18,7 +18,7 @@ def buildQuery(s):
     print(subjects)
     if subjects >= 2:
         # joined = True
-        s = join(s)
+        s = join(s, tables)
 
     s = Dict.DoReplacing(s)
     # s = 'Show me when both Mario and Sonic first came out'
@@ -41,7 +41,6 @@ def buildQuery(s):
 
         tokens = nltk.word_tokenize(s)
 
-        tables = ['games', 'systems']   # Actually generate tables from db later
         if tokens[tokens.index('from') + 1] not in tables:
             s = noTableName(s, tables, tokens[tokens.index('from') + 1])
 
@@ -153,6 +152,7 @@ def manageStringVars(s, sList):
     s = s.replace('\" ', '\"')
     s = s.replace(' , ', ', ')
     s = s.replace(',', ', ')
+    s = s.replace('  ', ' ')
     return s
 
 

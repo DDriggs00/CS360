@@ -1,6 +1,7 @@
 import nltk
 # import re
 import Dict
+from tenses import pluralize, singularize
 
 
 def append(tagged, Query, POS):
@@ -37,59 +38,67 @@ def append2(tagged, Query, POS, POS2):
     return Query
 
 
-def join(s):
-    # select A.B from games as x, systems as y where x.system = y.system
-    # Start: What games were made for systems made by Nintendo
-    # Start: What games were made for Nintendo Systems
-    # Goal: select games.game from games, systems where
-    s = "What games were made for systems made by Nintendo"
-    # s = "Give me a list of all the games in the database that were made by Nintendo before 2000 and have mario in the title"
-    Query = "select "
+# select A.B from games as x, systems as y where x.system = y.system
+# Start: What games were made for systems made by Nintendo
+# Start: What games were made for Nintendo Systems
+# Goal: select games.game from games, systems where
+s = "What games were made for systems made by Nintendo"
+# s = "Give me a list of all the games in the database that were made by Nintendo before 2000 and have mario in the title"
+Query = "select "
 
-    tokens = nltk.word_tokenize(s)
-    tagged = nltk.pos_tag(tokens)
-    print(tagged)
+tokens = nltk.word_tokenize(s)
+tagged = nltk.pos_tag(tokens)
+print(tagged)
 
-    Query = append(tagged, Query, 'NNS')
-    Query = Query.replace('games', 'games.game')
-    Query = Query.replace('systems', 'systems.system')
-    print(Query)
-    print(tagged)
+Query = append(tagged, Query, 'NNS')
 
-    Query += 'from games, systems '     # Change later
-    Query += 'where games.system = systems.system '     # Change later
+tables = ['games', 'systems']
+for table in tables:
+    Query = Query.replace(table, table + '.' + singularize(table))
+    Query = Query.replace(' ' + singularize(table) + ' ', ' ' + pluralize(table) + '.' + table + ' ')
 
-    print(Query)
-    print(tagged)
+print(Query)
+print(tagged)
 
-    i = 0
-    flag = False
-    for row in tagged:
-        if tagged[i][1] == 'NNS':
-            flag = True
-        if flag:
-            tagged[i] = ((tagged[i][0]), ('Z' + tagged[i][1]))
-        i += 1
+Query += 'from '
 
-    i = 0
-    flag = False
-    for row in tagged:
-        if tagged[i][1][0] == 'Z':
-            flag = True
-        if flag:
-            if tagged[i][1] == 'ZNNS':
-                Query += tagged[i][0]
-                Query += '.'
-            else:
-                Query += tagged[i][0]
-                Query += ' '
+Query += tables[0]
+Query += ', '
+Query += tables[1]
+Query += ' '
 
-        i += 1
-    Query = Dict.DoReplacing(Query)
+Query += 'where games.system = systems.system '     # Change later
 
-    Query = Query.replace('systems.where ', 'where systems.')
-    Query = Query.replace('games.where ', 'where games.')
+print(Query)
+print(tagged)
 
-    print(Query)
-    print(tagged)
-    return Query
+i = 0
+flag = False
+for row in tagged:
+    if tagged[i][1] == 'NNS':
+        flag = True
+    if flag:
+        tagged[i] = ((tagged[i][0]), ('Z' + tagged[i][1]))
+    i += 1
+
+i = 0
+flag = False
+for row in tagged:
+    if tagged[i][1][0] == 'Z':
+        flag = True
+    if flag:
+        if tagged[i][1] == 'ZNNS':
+            Query += tagged[i][0]
+            Query += '.'
+        else:
+            Query += tagged[i][0]
+            Query += ' '
+
+    i += 1
+Query = Dict.DoReplacing(Query)
+
+Query = Query.replace('systems.where ', 'where systems.')
+Query = Query.replace('games.where ', 'where games.')
+
+print(Query)
+print(tagged)

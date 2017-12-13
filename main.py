@@ -1,10 +1,10 @@
-import queryBuilder     # Dynamically builds query (local file)
+from queryBuilder import buildQuery    # Dynamically builds query (local file)
 
-from sys import exit    # for sys.exit
-import os               # for clearing screen
-from time import sleep  # for waiting 1 sec before clearing screen
-import mysql.connector  # for querying db
+import os                               # for clearing screen
+import mysql.connector                  # for querying db
 from mysql.connector import errorcode   # for handling bad connections, etc.
+from sys import exit                    # for sys.exit
+from time import sleep                  # for waiting 1 sec before clearing screen
 from getpass import getpass             # For Getting password without echoing
 
 
@@ -36,14 +36,14 @@ os.system('cls' if os.name == 'nt' else 'clear')
 # Connect to Server
 GoodCon = False
 while not GoodCon:
-    IP = input("Select Server IP or \"Exit\" to quit: ")
-    if IP.lower() == "exit":
-        exit(txt.green + "Have a nice Day :)" + txt.n)
-    User = input("Username: ")
-    Pass = getpass("Password: ")
-    # User = 'root'
-    # Pass = 'Password1'
-    # IP = 'localhost'
+    # IP = input("Select Server IP or \"Exit\" to quit: ")
+    # if IP.lower() == "exit":
+    #     exit(txt.green + "Have a nice Day :)" + txt.n)
+    # User = input("Username: ")
+    # Pass = getpass("Password: ")
+    User = 'root'
+    Pass = 'Password1'
+    IP = 'localhost'
     try:  # try statement to ensure connection is valid
         dbcon = mysql.connector.connect(user=User, password=Pass, host=IP)
     except mysql.connector.Error as err:
@@ -59,14 +59,14 @@ while not GoodCon:
 # Select Database
 GoodDB = False
 while not GoodDB:
-    print(txt.b)
-    cursor.execute('show databases')
-    output = cursor.fetchall()
-    for row in output:
-        print(row[0])
-    print(txt.n)
-    DB = input("Select Database to use from the list above: ")
-    # DB = 'Gamedb'
+    # print(txt.b)
+    # cursor.execute('show databases')
+    # output = cursor.fetchall()
+    # for row in output:
+    #     print(row[0])
+    # print(txt.n)
+    # DB = input("Select Database to use from the list above: ")
+    DB = 'Gamedb'
     try:
         cursor.execute('use ' + DB)
     except mysql.connector.Error:
@@ -78,13 +78,16 @@ print(txt.green + "Database Connected!" + txt.n)
 sleep(1)
 os.system('cls' if os.name == 'nt' else 'clear')
 
-while True:
-    s = input("Please enter a Query or \"Exit\" to quit\n")
-    # s = 'Did Sega make any games in 2000?'
-    if s.lower() == "exit":
-        exit(txt.green + "Have a nice Day :)" + txt.n)
+cursor.execute('show tables')
+tables = cursor.fetchall()
 
-    s = queryBuilder.buildQuery(s)  # should be of form select..from..where
+while True:
+    # s = input("Please enter a Query or \"Exit\" to quit\n")
+    # if s.lower() == "exit":
+    #     exit(txt.green + "Have a nice Day :)" + txt.n)
+    s = 'What games were made for systems made by Nintendo'
+
+    s = buildQuery(s, tables)  # should be of form select..from..where
     print('\nYour Query was compiled to: \n' + txt.b + s + txt.n + '\nIf This is not what you meant, try re-wording your query.\n')
     try:
         cursor.execute(s)
@@ -105,6 +108,7 @@ while True:
         else:
             print("No Results")
         print(txt.n)
+    exit()
 
 cursor.close()  # close cursor, bad form to keep open
 dbcon.close()   # close connection, bad form to keep open
