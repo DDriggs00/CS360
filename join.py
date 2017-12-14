@@ -42,8 +42,8 @@ def append2(tagged, Query, POS, POS2):
 # Start: What games were made for systems made by Nintendo
 # Start: What games were made for Nintendo Systems
 # Goal: select games.game from games, systems where
-s = "What games were made for systems made by Nintendo"
-# s = "Give me a list of all the games in the database that were made by Nintendo before 2000 and have mario in the title"
+s = "What games were made for Nintendo Systems before 2000"
+# s = "What games were made for systems made by Nintendo before 2000"
 Query = "select "
 
 tokens = nltk.word_tokenize(s)
@@ -60,17 +60,36 @@ for table in tables:
 print(Query)
 print(tagged)
 
+
+# From
 Query += 'from '
+for table in tables:
+    Query += table
+    Query += ', '
+Query = Query.strip(', ') + ' '
 
-Query += tables[0]
-Query += ', '
-Query += tables[1]
-Query += ' '
-
+# Actual Joining
 Query += 'where games.system = systems.system '     # Change later
 
 print(Query)
 print(tagged)
+
+# Nintendo Systems ==> Systems made by Nintendo
+temp = False
+i = 0
+for row in tagged:
+    if tagged[i][1] == 'NNP':
+        if tagged[i + 1][1] == 'NNPS':
+            Query += tagged[i + 1][0]
+            Query += '.made by '
+            Query += tagged[i][0]
+            Query += ' '
+            tagged[i] = ((tagged[i][0]), ('X' + tagged[i][1]))
+            tagged[i + 1] = ((tagged[i + 1][0]), ('X' + tagged[i + 1][1]))
+            break
+
+    i += 1
+
 
 i = 0
 flag = False
@@ -83,13 +102,16 @@ for row in tagged:
 
 i = 0
 flag = False
-for row in tagged:
+for i in range(0, len(tagged)):
     if tagged[i][1][0] == 'Z':
         flag = True
     if flag:
         if tagged[i][1] == 'ZNNS':
-            Query += tagged[i][0]
-            Query += '.'
+            temp = tagged[i][0] + '.'
+            Query += temp
+        elif tagged[i][1] == 'ZNNP' and i != len(tagged):
+            Query += tagged[i][0] + ' '
+            Query += temp
         else:
             Query += tagged[i][0]
             Query += ' '
@@ -97,8 +119,8 @@ for row in tagged:
     i += 1
 Query = Dict.DoReplacing(Query)
 
-Query = Query.replace('systems.where ', 'where systems.')
-Query = Query.replace('games.where ', 'where games.')
+for table in tables:
+    Query = Dict.Replace(Query, [table + '\.where '], 'where ' + table + '.')
 
-print(Query)
 print(tagged)
+print('\n\n' + Query)
