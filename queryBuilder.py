@@ -38,7 +38,6 @@ def buildQuery(s, tables):
         s = s.replace('select ' + temp, 'select ' + temps + ' from ' + tempp)
 
         tokens = nltk.word_tokenize(s)
-
         if tokens[tokens.index('from') + 1] not in tables:
             s = noTableName(s, tables, tokens[tokens.index('from') + 1])
 
