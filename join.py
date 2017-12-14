@@ -43,7 +43,6 @@ def join(s, tables):
 
     tokens = nltk.word_tokenize(s)
     tagged = nltk.pos_tag(tokens)
-    print(tagged)
 
     Query = append(tagged, Query, 'NNS')
 
@@ -51,9 +50,6 @@ def join(s, tables):
     for table in tables:
         Query = Query.replace(table, table + '.' + singularize(table))
         Query = Query.replace(' ' + singularize(table) + ' ', ' ' + pluralize(table) + '.' + table + ' ')
-
-    print(Query)
-    print(tagged)
 
     # From
     Query += 'from '
@@ -64,9 +60,6 @@ def join(s, tables):
 
     # Actual Joining
     Query += 'where games.system = systems.system '     # Change later
-
-    print(Query)
-    print(tagged)
 
     # Nintendo Systems ==> Systems made by Nintendo
     temp = False
@@ -114,8 +107,5 @@ def join(s, tables):
 
     for table in tables:
         Query = Dict.Replace(Query, [table + '\.where '], 'where ' + table + '.')
-
-    print(tagged)
-    print('\n\n' + Query)
 
     return Query

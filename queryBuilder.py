@@ -15,7 +15,6 @@ def buildQuery(s, tables):
     for item in Tagged:
         if item[1] == 'NNS':
             subjects += 1
-    print(subjects)
     if subjects >= 2:
         # joined = True
         s = join(s, tables)
