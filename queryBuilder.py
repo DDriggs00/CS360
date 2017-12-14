@@ -19,7 +19,6 @@ def buildQuery(s, tables):
     if subjects >= 2:
         # joined = True
         s = join(s, tables)
-
     s = Dict.DoReplacing(s)
     # s = 'Show me when both Mario and Sonic first came out'
     s = s.strip()   # Remove Leading and Trailing Whitespace
