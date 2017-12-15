@@ -23,13 +23,12 @@ def buildQuery(s, tables):
     s = s.strip()   # Remove Leading and Trailing Whitespace
     s = ReplaceNotFirst(s, 'where', 'and')
     s = s.replace('and and', 'and')
-    tokens = nltk.word_tokenize(s)
 
     # Remove generic database references
     if s.lower().find("from database") != -1:
         s = Dict.Replace(s, [" from database"], '')
-        tokens = nltk.word_tokenize(s)
 
+    tokens = nltk.word_tokenize(s)
     # if there is no "from"
     if s.find('from') == -1 and s.find('select') != -1:
         temp = tokens[tokens.index('select') + 1]
@@ -44,8 +43,6 @@ def buildQuery(s, tables):
     if s[-1] != ';':
         s = s + ';'
     tokens = s.split(' ')
-    # tokens = nltk.word_tokenize(s)
-    # tagged = nltk.pos_tag(tokens)
 
     s = manageStringVars(s, tokens)
     # above func takes in string and list, looks for operator and if the following
