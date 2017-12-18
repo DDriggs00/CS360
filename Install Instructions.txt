@@ -5,12 +5,12 @@ https://www.python.org/downloads/
 
 Install Atom from here:
 atom.io
+
 Install atom extension:
-Teletype
 atom-python-run
 
-
 Make sure python 3.6 is added to path and 2.7 is not (if you have it installed).
+
 Open up a command prompt and run the following commands:
 pip install nltk
 pip install numpy

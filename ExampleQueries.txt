@@ -20,9 +20,8 @@ Show me when both Sonic and Super Mario first came out.
 
 TO Do:
 <wording changed> Change wording of table selection (remove if possible)
-<mostly done, just need queries> join
+<done> join
 <join only> Use NLP
-Guessing
 
 Join Queries:
 What games were made for systems made before 2000
