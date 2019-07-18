@@ -4,4 +4,4 @@ This program is designed to convert a natural language input query, such as `sho
 
 This program is designed to read from a database, NOT write to it.
 
-Made by Devin Driggs and Dakota Jackson
+Made by Devin Driggs and Dakota Jackson for a Database class at University of Idaho
